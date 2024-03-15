@@ -1,0 +1,194 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 75%;
+    margin: 0 auto;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.link {
+    padding: 12px;
+    text-decoration: none;
+    color: #676363;
+    font-size: 18px;
+    line-height: 40px;
+    font-weight: 500;
+    font-family: 'Poppins', sans-serif;
+}
+
+.link:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+.active {
+    color: black;
+    text-decoration: underline;
+}
+
+.login {
+    border: 1px solid transparent;
+}
+
+.login:hover {
+    border: 1px solid #3559E0;
+    border-radius: 12px;
+}
+
+.signup {
+    background-color: #3559E0;
+    border-radius: 12px;
+    color: white;
+}
+
+.signup:hover {
+    background-color: #dadada;
+    color: #3559E0;
+}
+
+.bars {
+    display: none;
+    font-size: 24px;
+    padding: 8px;
+    color: #676363;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.bars:hover {
+    color: white;
+    background-color: #627bd6;
+}
+
+
+.mobile_menu {
+    display: none;
+    flex-direction: column;
+}
+
+.mobile_menu .link {
+    padding: 6px;
+    margin: 0 auto;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Hero Section */
+.hero-wrapper {
+    background-color: #b2b0b0;
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 75%;
+    margin: 0 auto;
+    padding: 36px 0;
+}
+
+.left {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 54px;
+}
+
+.left h1 {
+    font-size: 48px;
+    color: #3559E0;
+}
+
+.left p {
+    font-size: 24px;
+}
+
+.left .cta a {
+    text-decoration: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 18px;
+}
+
+.left .cta a:nth-child(1){
+    background-color: #3559E0;
+    color: white;
+    outline: 1px #3559E0 solid;
+}
+
+.left .cta a:nth-child(2){
+    outline: 1px #3559E0 solid;
+    color: black;
+    font-weight: 600;
+    margin-left: 18px;
+}
+
+.left .cta a:nth-child(2):hover{
+    background-color: #5473e1;
+    color: white;
+}
+
+.right {
+    width: 50%;
+    text-align: right;
+}
+
+.right img {
+    height: 700px;
+}
+/* End Hero Section */
+
+@media only screen and (max-width: 960px){
+    nav {
+        width: 90%;
+    }
+    .hero {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 800px){
+    .links {
+        display: none;
+    }
+
+    .mobile_menu {
+        display: flex;
+    }
+    .bars {
+        display: block;
+    }
+    .hero {
+        flex-direction: column;
+    }
+    .left , .right {
+        width: 100%;
+        text-align: center;
+    }
+    .left {
+        margin-bottom: 32px;
+    }
+    .left h1 {
+        font-size: 36px;
+    }
+}
