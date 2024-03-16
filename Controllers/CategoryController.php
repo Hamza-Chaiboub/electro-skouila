@@ -11,88 +11,53 @@ class CategoryController
 
     public function index()
     {
-        /*$query = "SELECT * FROM categories";
-        $categories = $this->db->query($query);
-        if($categories->rowCount() > 0){
-            return $categories->fetchAll();
-        }
-        else
-        {
-            return null;
-        }*/
-        $categories = $this->database->run("SELECT * FROM categories");
+        $query = "SELECT * FROM categories";
+
+        $categories = $this->database->run($query);
         if ($categories->rowCount() < 0) {
-            //return null;
-            return 'error';
+            return null;
         }
 
-        //return $categories;
         require __DIR__ . '/../views/categories/categories.php';
-
     }
 
     public function featured()
     {
-        /*$query = "SELECT * FROM categories";
-        $categories = $this->db->query($query);
-        if($categories->rowCount() > 0){
-            return $categories->fetchAll();
-        }
-        else
-        {
-            return null;
-        }*/
-        $categories = $this->database->run("SELECT * FROM categories WHERE featured = true");
+        $query = "SELECT * FROM categories WHERE featured = true";
+
+        $categories = $this->database->run($query);
+
         if ($categories->rowCount() < 0) {
             return null;
         }
 
         return $categories;
-
     }
 
-    public function create()
+    public function create(): void
     {
         require __DIR__ . '/../views/categories/create.php';
     }
+
     public function store($data): void
     {
         $query = "INSERT INTO categories (name, description, image, featured) values (?, ?, ?, ?)";
-        /*$params = [
-            $data["name"],
-            $data["description"],
-            $data["image_path"]
-        ];
-        $this->db->prepare($query)->execute($params);*/
 
         $this->database->run($query, [$data["name"], $data["description"], $data["image"], $data["featured"]]);
     }
 
     public function view($id)
     {
-        /*$query = "SELECT *
-                  FROM categories
-                  WHERE `id` = $id
-                  LIMIT 1";*/
-        //return $this->db->query($query)->fetchObject();
+        $query = "SELECT * FROM categories WHERE `id` = :id LIMIT 1";
 
-        return $this->database->record("SELECT * FROM categories WHERE `id` = :id LIMIT 1", ['id' => $id]);
+        return $this->database->record($query, ['id' => $id]);
     }
 
     public function edit($id)
     {
-        /*$query = "SELECT *
-                  FROM categories
-                  WHERE `id` = :id
-                  LIMIT 1";
-        $params = [
-            'id' => $id
-        ];
-        $statement = $this->database->prepare($query);
-        $statement->execute($params);
-        return $statement->fetchObject();*/
+        $query = "SELECT * FROM categories where `id` = :id LIMIT 1";
 
-        return $this->database->record("SELECT * FROM categories where `id` = :id LIMIT 1", ['id' => $id]);
+        return $this->database->record($query, ['id' => $id]);
     }
 
     public function update($id, $data): void
