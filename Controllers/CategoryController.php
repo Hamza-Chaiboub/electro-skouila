@@ -9,7 +9,7 @@ class CategoryController
         $this->database = new DatabaseConnection();
     }
 
-    public function index(): false|PDOStatement|null
+    public function index()
     {
         /*$query = "SELECT * FROM categories";
         $categories = $this->db->query($query);
@@ -22,15 +22,42 @@ class CategoryController
         }*/
         $categories = $this->database->run("SELECT * FROM categories");
         if ($categories->rowCount() < 0) {
+            //return null;
+            return 'error';
+        }
+
+        //return $categories;
+        require __DIR__ . '/../views/categories/categories.php';
+
+    }
+
+    public function featured()
+    {
+        /*$query = "SELECT * FROM categories";
+        $categories = $this->db->query($query);
+        if($categories->rowCount() > 0){
+            return $categories->fetchAll();
+        }
+        else
+        {
+            return null;
+        }*/
+        $categories = $this->database->run("SELECT * FROM categories WHERE featured = true");
+        if ($categories->rowCount() < 0) {
             return null;
         }
 
         return $categories;
 
     }
-    public function create($data): void
+
+    public function create()
     {
-        $query = "INSERT INTO categories (name, description, image) values (?, ?, ?)";
+        require __DIR__ . '/../views/categories/create.php';
+    }
+    public function store($data): void
+    {
+        $query = "INSERT INTO categories (name, description, image, featured) values (?, ?, ?, ?)";
         /*$params = [
             $data["name"],
             $data["description"],
@@ -38,7 +65,7 @@ class CategoryController
         ];
         $this->db->prepare($query)->execute($params);*/
 
-        $this->database->run($query, [$data["name"], $data["description"], $data["image"]]);
+        $this->database->run($query, [$data["name"], $data["description"], $data["image"], $data["featured"]]);
     }
 
     public function view($id)

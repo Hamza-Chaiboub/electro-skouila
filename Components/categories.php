@@ -1,11 +1,16 @@
 <?php
-require_once __DIR__ . '/../Controllers/DatabaseConnection.php';
-require __DIR__ . '/../Controllers/CategoryController.php';
+//require_once __DIR__ . '/../Controllers/DatabaseConnection.php';
 
-$db_handler = new DatabaseConnection();
+if (!isset($categories)) {
+    //var_dump($categories);
+    //require __DIR__ . '/../Controllers/CategoryController.php';
 
-$categories = new CategoryController();
-$results = $categories->index();
+    $allCategories = new CategoryController();
+
+    $categories = $allCategories->index();
+}
+
+//$results = $categories->index();
 ?>
 
 <section>
@@ -15,8 +20,8 @@ $results = $categories->index();
         </div> 
         <div class="cat-wrapper flex justify-around flex-wrap gap-16 w-3/4 mx-auto">
             <?php
-            if($results !== null){
-            foreach($results as $result){ ?>
+            if($categories !== null){
+            foreach($categories as $result){ ?>
                 <div class="category shadow-xl">
                     <a href="">
                         <div style="background-image: url(<?php echo $result->image ?>)" class="group img h-64 w-96 bg-cover flex items-end justify-center p-4 rounded-lg">
