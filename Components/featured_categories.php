@@ -12,7 +12,7 @@ $categories = $allCategories->featured();
 <section>
     <div class="mx-auto text-center my-16">
         <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">Categories</h2>
-        <a href="/categories/create" class="bg-blue-500 text-white p-4 rounded-lg hover:bg-blue-700">Create New Category</a>
+        <a href="/category/create" class="bg-blue-500 text-white p-4 rounded-lg hover:bg-blue-700">Create New Category</a>
     </div>
     <div class="cat-wrapper flex justify-around flex-wrap gap-16 w-3/4 mx-auto">
         <?php

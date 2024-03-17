@@ -12,15 +12,25 @@
  *
  * */
 
-$router->get('/', 'Controllers/index.php');
+/*$router->get('/', 'Controllers/index.php');
 //$router->get('/categories', 'views/categories/categories.php');
-$router->get('/categories', 'views/categories/categories.php');
-$router->get('/categories/create', 'views/categories/create.php');
-$router->get('/category', 'views/categories/view.php');
-$router->get('/category/edit', 'views/categories/edit.php');
-$router->get('/category/delete', 'views/categories/delete.php');
+//$router->get('/categories', 'views/categories/categories.php');
+//$router->get('/categories/create', 'views/categories/create.php');
+//$router->get('/category', 'views/categories/view.php');
+//$router->get('/category/edit', 'views/categories/edit.php');
+//$router->get('/category/delete', 'views/categories/delete.php');
 
-$router->post('/categories/create', 'views/categories/create.php');
+//$router->post('/categories/create', 'views/categories/create.php');
 
 
-//$router->get($uri, $controller, $method, $args);
+//$router->get($uri, $controller, $method, $args);*/
+
+$router->addRoute('GET', '/','HomeController', 'index');
+
+$router->addRoute('GET', '/categories','CategoryController', 'index');
+
+$router->addRoute('GET', "/category",'CategoryController', 'view');
+
+$router->addRoute('GET', '/category/create','CategoryController', 'create');
+
+$router->addRoute('GET', '/category/edit/{id}','CategoryController', 'edit');

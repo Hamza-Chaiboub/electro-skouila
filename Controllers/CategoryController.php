@@ -50,14 +50,26 @@ class CategoryController
     {
         $query = "SELECT * FROM categories WHERE `id` = :id LIMIT 1";
 
-        return $this->database->record($query, ['id' => $id]);
+        $category = $this->database->record($query, ['id' => $id]);
+
+        if ($category->rowCount() < 0) {
+            return null;
+        }
+
+        require __DIR__ . '/../views/categories/view.php';
     }
 
     public function edit($id)
     {
         $query = "SELECT * FROM categories where `id` = :id LIMIT 1";
 
-        return $this->database->record($query, ['id' => $id]);
+        $category = $this->database->record($query, ['id' => $id]);
+
+        if ($category->rowCount() < 0) {
+            return null;
+        }
+
+        require __DIR__ . '/../views/categories/edit.php';
     }
 
     public function update($id, $data): void

@@ -1,7 +1,7 @@
 <?php
 //require('Core/Router.php');
 //
-$uri = parse_url($_SERVER["REQUEST_URI"])['path'];
+$uri = $_SERVER["REQUEST_URI"];
 //$method = $_POST['_method'] ?? $_SERVER["REQUEST_METHOD"];
 //
 //$router = new Router();
@@ -25,16 +25,9 @@ $router->addRoute('GET', '/categories', function() {
     require 'views/categories/categories.php';
 });*/
 
-
-/*
- * get method from controller
- */
+$routes = require 'routes.php';
 
 
-$router->addRoute('GET', '/','HomeController', 'index');
-$router->addRoute('GET', '/categories','CategoryController', 'index');
-$router->addRoute('GET', '/categories/create','CategoryController', 'create');
-
-
+//echo '<pre>', print_r($matches, true), '</pre>';
 
 $router->matchRoute($uri);

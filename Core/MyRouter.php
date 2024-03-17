@@ -22,23 +22,26 @@ class MyRouter
     public function matchRoute($uri)
     {
         //$this->routes["method"] = $_SERVER['REQUEST_METHOD'];
-
-
-        //echo '<pre>';
-        //var_dump($this->routes);
-        //echo '</pre>';
-        //die();
+        $routeNames = [];
 
         foreach ($this->routes as $route) {
+            if (preg_match_all('/\{(\w+)(:[^}]+)?/', $route["url"], $matches)) {
+                $routeNames = $matches[1];
+            }
 
-            $controller = $route["controller"];
+            echo '<pre>';
+            var_dump($routeNames);
+            echo '</pre>';
+
+            /*$controller = $route["controller"];
             $function = $route["function"];
+
             if (class_exists($controller) && $uri == $route["url"]) {
                 $controllerInstance = new $controller();
                 if (method_exists($controller, $function)) {
                     $controllerInstance->$function();
                 }
-            }
+            }*/
         }
     }
 }
