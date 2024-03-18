@@ -52,11 +52,12 @@ class CategoryController
 
         $category = $this->database->record($query, ['id' => $id]);
 
-        if ($category->rowCount() < 0) {
+        /*if ($category->rowCount() < 0) {
             return null;
-        }
+        }*/
 
         require __DIR__ . '/../views/categories/view.php';
+        exit();
     }
 
     public function edit($id)

@@ -2,6 +2,7 @@
 //require('Core/Router.php');
 //
 $uri = $_SERVER["REQUEST_URI"];
+//var_dump($uri);
 //$method = $_POST['_method'] ?? $_SERVER["REQUEST_METHOD"];
 //
 //$router = new Router();
