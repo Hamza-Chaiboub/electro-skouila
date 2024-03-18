@@ -52,12 +52,11 @@ class CategoryController
 
         $category = $this->database->record($query, ['id' => $id]);
 
-        /*if ($category->rowCount() < 0) {
-            return null;
-        }*/
+        if (! $category) {
+            $category = null;
+        }
 
         require __DIR__ . '/../views/categories/view.php';
-        exit();
     }
 
     public function edit($id)
@@ -66,8 +65,8 @@ class CategoryController
 
         $category = $this->database->record($query, ['id' => $id]);
 
-        if ($category->rowCount() < 0) {
-            return null;
+        if (! $category) {
+            $category = null;
         }
 
         require __DIR__ . '/../views/categories/edit.php';
@@ -76,12 +75,13 @@ class CategoryController
     public function update($id, $data): void
     {
         $query = "UPDATE categories
-                    SET name = :name, description = :description, image = :image
-                    WHERE `id` = :id";
+                  SET name = :name, description = :description, image = :image, featured = :featured
+                  WHERE `id` = :id";
         $params = [
             "name" => $data["name"],
             "description" => $data["description"],
             "image" => $data["image"],
+            "featured" => $data["featured"],
             'id' => $id
         ];
         $this->database->run($query, $params);
@@ -92,6 +92,7 @@ class CategoryController
         $query = "DELETE FROM categories WHERE `id` = :id";
         $args = ['id' => $id];
         $this->database->run($query, $args);
+        header('location: /categories');
     }
 
 }

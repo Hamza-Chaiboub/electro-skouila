@@ -21,7 +21,7 @@ $categories = $allCategories->featured();
                 <div class="category shadow-xl">
                     <a href="">
                         <div style="background-image: url(<?php echo $result->image ?>)" class="group img h-64 w-96 bg-cover flex items-end justify-center p-4 rounded-lg">
-                            <a href="/category?id=<?php echo $result->id ?>" class="title bg-gray-300 hover:bg-blue-600 hover:text-white text-2xl rounded-md w-3/4 text-center mx-auto group-hover:bg-blue-600 group-hover:text-white"><?php echo $result->name ?></a>
+                            <a href="/category/<?php echo $result->id ?>" class="title bg-gray-300 hover:bg-blue-600 hover:text-white text-2xl rounded-md w-3/4 text-center mx-auto group-hover:bg-blue-600 group-hover:text-white"><?php echo $result->name ?></a>
                         </div>
                     </a>
                 </div>

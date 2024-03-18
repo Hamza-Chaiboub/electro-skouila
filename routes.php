@@ -27,10 +27,11 @@
 
 $router->addRoute('GET', '/','HomeController', 'index');
 
+
+
+
 $router->addRoute('GET', '/categories','CategoryController', 'index');
-
 $router->addRoute('GET', "/category/{id:\d+}",'CategoryController', 'view');
-
 $router->addRoute('GET', '/category/create','CategoryController', 'create');
-
 $router->addRoute('GET', '/category/edit/{id:\d+}','CategoryController', 'edit');
+$router->addRoute('GET', '/category/delete/{id:\d+}','CategoryController', 'destroy');
