@@ -6,7 +6,10 @@ if(isset($_POST['submit'])){
     $data["name"] = $_POST["name"];
     $data["description"] = $_POST["description"];
     $data["image"] = $_POST["image"];
-    $data["featured"] = $_POST["featured"];
+    $data["featured"] = $_POST["featured"] ?? 0;
+
+    
+
     $newCat = new CategoryController();
     $newCat->update($id, $data);
     header('Location: /');
