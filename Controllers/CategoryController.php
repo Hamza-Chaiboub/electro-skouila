@@ -19,6 +19,7 @@ class CategoryController
         }
 
         require __DIR__ . '/../views/categories/categories.php';
+        $this->database->closeConnection();
     }
 
     public function featured()
@@ -26,6 +27,7 @@ class CategoryController
         $query = "SELECT * FROM categories WHERE featured = true";
 
         $categories = $this->database->run($query);
+        $this->database->closeConnection();
 
         if ($categories->rowCount() < 0) {
             return null;

@@ -2,7 +2,7 @@
 
 class DatabaseConnection
 {
-    public PDO $db;
+    static PDO|null $db;
 
     public function __construct()
     {
@@ -13,17 +13,17 @@ class DatabaseConnection
             echo $e->getMessage();
             die();
         }
-        return $this->db = $db;
+        return self::$db = $db;
     }
 
     public function run($sql, $args = [])
     {
         if (empty($args)) {
-            return $this->db->query($sql);
+            return self::$db->query($sql);
         }
 
         $is_assoc = (array() !== $args) && array_keys($args) !== range(0, count($args) - 1);
-        $stmt = $this->db->prepare($sql);
+        $stmt = self::$db->prepare($sql);
 
         if ($is_assoc) {
             foreach ($args as $key => $value) {
@@ -44,5 +44,10 @@ class DatabaseConnection
     public function record($sql, $args = [])
     {
         return $this->run($sql, $args)->fetch();
+    }
+
+    public static function closeConnection()
+    {
+        self::$db = null;
     }
 }

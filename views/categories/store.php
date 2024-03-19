@@ -6,7 +6,13 @@ if(isset($_POST['submit'])){
         $data["featured"] = $_POST["featured"] ?? 0;
         $data["name"] = $_POST["name"];
         $data["description"] = $_POST["description"];
-        $data["image"] = $_POST["image"];
+        $data["image"] = $_FILES["image"] ?? "didn't get it from post :(";
+
+        echo '<pre>';
+        print_r($data["image"]);
+        echo '</pre>';
+        die();
+
         $newCat = new CategoryController();
         $newCat->store($data);
         header('Location: /');
