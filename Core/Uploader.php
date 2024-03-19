@@ -6,7 +6,7 @@ class ImageUploader
     private $image_type;
     private $image_tmp;
     private $image_size;
-    private $upload_folder = __DIR__ . "/../storage/img";
+    private $upload_folder = __DIR__ . "/../storage/img/";
     private $max_size = 2 * 1024 * 1024;
     private $allowed_types = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
     public $error;
@@ -16,7 +16,7 @@ class ImageUploader
         $this->image_name = $file["image"]["name"];
         $this->image_size = $file["image"]["size"];
         $this->image_type = $file["image"]["type"];
-        $this->image_tmp = $file["image"]["tmp"];
+        $this->image_tmp = $file["image"]["tmp_name"];
 
         $this->isEmpty();
 
@@ -26,7 +26,7 @@ class ImageUploader
         if ($this->error == null) $this->imageRename();
         if ($this->error == null) $this->sizeValidation();
         if ($this->error == null) $this->moveFile();
-        if ($this->error == null) $this->storeImage();
+        //if ($this->error == null) $this->storeImage();
     }
 
     private function isEmpty()
@@ -70,8 +70,9 @@ class ImageUploader
         }
     }
 
-    private function storeImage()
+    public function storeImage()
     {
+        return '/storage/img/' . $this->image_name;
     }
 
 

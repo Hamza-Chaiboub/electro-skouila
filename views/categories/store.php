@@ -1,17 +1,14 @@
 <?php
 require_once __DIR__ . '/../../Controllers/CategoryController.php';
+require_once __DIR__ . '/../../Core/Uploader.php';
 
 if(isset($_POST['submit'])){
     if(!empty($_POST["name"])){
         $data["featured"] = $_POST["featured"] ?? 0;
         $data["name"] = $_POST["name"];
         $data["description"] = $_POST["description"];
-        $data["image"] = $_FILES["image"] ?? "didn't get it from post :(";
-
-        echo '<pre>';
-        print_r($data["image"]);
-        echo '</pre>';
-        die();
+        $data["image"] = $_FILES;
+        $data["image"] = (new ImageUploader($_FILES))->storeImage();
 
         $newCat = new CategoryController();
         $newCat->store($data);

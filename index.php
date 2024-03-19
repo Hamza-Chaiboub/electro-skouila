@@ -1,9 +1,5 @@
 <?php
 
-var_dump(date("c"));
-die();
-
-
 $uri = $_SERVER["REQUEST_URI"];
 
 require_once 'Core/MyRouter.php';
