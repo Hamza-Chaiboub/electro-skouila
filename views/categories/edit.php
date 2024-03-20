@@ -20,7 +20,7 @@ require_once __DIR__ . '/../../Controllers/CategoryController.php';
                     Edit <?php echo $category->name ?>
                 </h3>
             </div>
-            <form action="/views/categories/update.php" method="POST">
+            <form action="/views/categories/update.php" method="POST" enctype="multipart/form-data">
                 <div class="mb-4 flex flex-col gap-4">
                     <div>
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
@@ -32,7 +32,7 @@ require_once __DIR__ . '/../../Controllers/CategoryController.php';
 
                         <label class="block mb-2 text-sm font-medium text-gray-900 w-full" for="file_input">Upload file</label>
                         <img src='<?php echo $category->image ?>' alt="" class="w-1/3 items-center">
-                        <input name="image_path" class="flex-grow block h-7 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" id="file_input" type="file" value="">
+                        <input name="image" class="flex-grow block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" id="file_input" type="file" value="">
                         <input type="hidden" name="image" value="<?php echo $category->image ?>">
                         <p class="mt-1 text-sm text-gray-500" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
 

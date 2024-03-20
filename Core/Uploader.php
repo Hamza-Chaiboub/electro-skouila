@@ -71,7 +71,10 @@ class ImageUploader
 
     public function storeImage()
     {
-        return '/storage/img/' . $this->image_name;
+        if ($this->error == null) {
+            return '/storage/img/' . $this->image_name;
+        }
+        return null;
     }
 
 

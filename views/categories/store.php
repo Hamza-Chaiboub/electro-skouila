@@ -7,7 +7,6 @@ if(isset($_POST['submit'])){
         $data["featured"] = $_POST["featured"] ?? 0;
         $data["name"] = $_POST["name"];
         $data["description"] = $_POST["description"];
-        $data["image"] = $_FILES;
         $data["image"] = (new ImageUploader($_FILES))->storeImage();
 
         $newCat = new CategoryController();
