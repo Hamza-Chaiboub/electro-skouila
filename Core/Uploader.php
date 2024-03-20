@@ -21,7 +21,6 @@ class ImageUploader
         $this->isEmpty();
 
         if ($this->error == null) $this->isImage();
-
         if ($this->error == null) $this->checkFileType();
         if ($this->error == null) $this->imageRename();
         if ($this->error == null) $this->sizeValidation();
@@ -53,7 +52,7 @@ class ImageUploader
     private function imageRename()
     {
         $ext = pathinfo($this->image_name, PATHINFO_EXTENSION);
-        $this->image_name = date("c") . "." . $ext;
+        $this->image_name = pathinfo($this->image_name, PATHINFO_FILENAME).'-'.date("d-m-Y-H-i-s") . "." . $ext;
     }
 
     private function sizeValidation()
