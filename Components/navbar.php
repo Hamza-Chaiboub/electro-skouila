@@ -11,7 +11,7 @@
 </head>
 <body>
 <header>
-    <nav>
+    <nav class="py-2">
         <div class="logo">
             <a href="/">
                 <img src="/img/logo.png" alt="logo of skouila">
