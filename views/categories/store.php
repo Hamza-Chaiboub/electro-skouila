@@ -13,6 +13,7 @@ if(isset($_POST['submit'])){
         $newCat->store($data);
         header('Location: /');
     }else {
-        $error = "Please type a name for the new category!";
+        //$error = "Please type a name for the new category!";
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }
