@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../Controllers/CategoryController.php';
 require_once __DIR__ . '/../../Core/Uploader.php';
+require_once __DIR__ . '/../../Core/ErrorHandler.php';
 
 if(isset($_POST['submit'])){
     if(!empty($_POST["name"])){
@@ -13,6 +14,8 @@ if(isset($_POST['submit'])){
         $newCat->store($data);
         header('Location: /');
     }else {
+        ErrorHandler::categoryErrorHandler();
+        //var_dump($_SESSION["error"]);
         //$error = "Please type a name for the new category!";
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
