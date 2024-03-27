@@ -2,9 +2,10 @@
 
 class ErrorHandler
 {
-    public static function categoryErrorHandler()
+
+    public static function getError($type ,$message)
     {
         session_start();
-        $_SESSION["error"] = "An error occurred while creating the new category";
+        $_SESSION[$type] = $message;
     }
 }

@@ -14,7 +14,7 @@ if(isset($_POST['submit'])){
         $newCat->store($data);
         header('Location: /');
     }else {
-        ErrorHandler::categoryErrorHandler();
+        ErrorHandler::getError('name', 'Category name cannot be empty');
         //var_dump($_SESSION["error"]);
         //$error = "Please type a name for the new category!";
         header('Location: ' . $_SERVER['HTTP_REFERER']);
