@@ -4,7 +4,7 @@ require_once __DIR__ . '/../../Controllers/CategoryController.php';
     /**
      * @var $category
      */
-$page = "categories";
+
 include_once __DIR__ . '/../../Components/navbar.php';
 ?>
 

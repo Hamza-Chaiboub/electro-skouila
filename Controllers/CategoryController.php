@@ -11,16 +11,18 @@ class CategoryController
         $this->database = new DatabaseConnection();
     }
 
-    public function index()
+    public function index(): void
     {
         $query = "SELECT * FROM categories";
 
         $categories = $this->database->run($query);
-        if ($categories->rowCount() < 0) {
-            return null;
+
+        if ($categories->rowCount() <= 0) {
+            $categories = null;
         }
 
-        require __DIR__ . '/../views/categories/categories.php';
+        view('categories/categories.php', ['categories' => $categories, 'page' => 'categories']);
+
         $this->database->closeConnection();
     }
 
@@ -31,7 +33,7 @@ class CategoryController
         $categories = $this->database->run($query);
         $this->database->closeConnection();
 
-        if ($categories->rowCount() < 0) {
+        if ($categories->rowCount() <= 0) {
             return null;
         }
 
@@ -40,7 +42,7 @@ class CategoryController
 
     public function create(): void
     {
-        require __DIR__ . '/../views/categories/create.php';
+        view('categories/create.php', ["page" => "categories"]);
     }
 
     public function store($data): void
@@ -80,7 +82,7 @@ class CategoryController
             $category = null;
         }
 
-        require __DIR__ . '/../views/categories/view.php';
+        view('categories/view.php', ['category' => $category, 'page' => 'categories']);
     }
 
     public function edit($id)
@@ -93,7 +95,7 @@ class CategoryController
             $category = null;
         }
 
-        require __DIR__ . '/../views/categories/edit.php';
+        view('categories/edit.php', ['category' => $category, 'page' => 'categories']);
     }
 
     public function update($id, $data): void
@@ -101,14 +103,32 @@ class CategoryController
         $query = "UPDATE categories
                   SET name = :name, description = :description, image = :image, featured = :featured
                   WHERE `id` = :id";
-        $params = [
-            "name" => $data["name"],
-            "description" => $data["description"],
-            "image" => $data["image"],
-            "featured" => $data["featured"],
-            'id' => $id
-        ];
-        $this->database->run($query, $params);
+        if(isset($_POST['submit'])) {
+            if (!empty($data["name"])) {
+
+                $params = [
+                    "name" => $data["name"],
+                    "description" => $data["description"],
+                    "image" => (new ImageUploader($_FILES))->storeImage() ?? $_POST["image"],
+                    "featured" => $data["featured"] ?? 0,
+                    'id' => $id
+                ];
+
+                $this->database->run($query, $params);
+
+                header('Location: /');
+
+                exit();
+
+
+            } else {
+                ErrorHandler::getError('name', 'Category name cannot be empty');
+                //var_dump($_SESSION["error"]);
+                //$error = "Please type a name for the new category!";
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                exit();
+            }
+        }
     }
 
     public function destroy($id): void

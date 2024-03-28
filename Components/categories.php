@@ -1,18 +1,8 @@
 <?php
-//require_once __DIR__ . '/../Controllers/DatabaseConnection.php';
-
-if (!isset($categories)) {
-    //var_dump($categories);
-    //require __DIR__ . '/../Controllers/CategoryController.php';
-
-    $allCategories = new CategoryController();
-
-    $categories = $allCategories->index();
-}
-
-//$results = $categories->index();
+/**
+ * @var $categories
+ */
 ?>
-
 <section>
         <div class="mx-auto text-center my-16">
             <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">Categories</h2>
@@ -31,7 +21,7 @@ if (!isset($categories)) {
                 </div>
             <?php }
             } else {
-                echo "Not Categories found!";
+                echo "<div>Not Categories found!</div>";
             }?>
         </div>
     </section>

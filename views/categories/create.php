@@ -1,12 +1,9 @@
 <?php
 session_start();
-$page = 'categories';
 if(isset($_POST["submit"])) (new CategoryController())->store($_POST);
 
-
+include(__DIR__ . '/../../Components/navbar.php');
 ?>
-
-<?php include(__DIR__ . '/../../Components/navbar.php'); ?>
 
 <div class="overflow-y-auto overflow-x-hidden flex justify-center items-center w-full">
     <div class="p-4 w-full max-w-2xl h-full md:h-auto">

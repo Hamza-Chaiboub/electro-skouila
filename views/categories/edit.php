@@ -1,16 +1,14 @@
 <?php
-$page = 'categories';
-require_once __DIR__ . '/../../Controllers/CategoryController.php';
 
 /**
  * @var $category
  */
 
+if(isset($_POST["submit"])) (new CategoryController())->update($category->id, $_POST);
 
+include(__DIR__ . '/../../Components/navbar.php');
 
 ?>
-
-<?php include(__DIR__ . '/../../Components/navbar.php'); ?>
 
 <div class="overflow-y-auto overflow-x-hidden flex justify-center items-center w-full">
     <div class="p-4 w-full max-w-2xl h-full md:h-auto">
@@ -20,7 +18,7 @@ require_once __DIR__ . '/../../Controllers/CategoryController.php';
                     Edit <?php echo $category->name ?>
                 </h3>
             </div>
-            <form action="/views/categories/update.php" method="POST" enctype="multipart/form-data">
+            <form action="/category/edit/<?php echo $category->id ?>" method="POST" enctype="multipart/form-data">
                 <div class="mb-4 flex flex-col gap-4">
                     <div>
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Name</label>

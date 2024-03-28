@@ -3,5 +3,5 @@ node_modules/
 .htaccess
 rappel.php
 router.php
-img/*
+public/img/*
 .gitignore

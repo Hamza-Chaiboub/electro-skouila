@@ -27,7 +27,7 @@ $categories = $allCategories->featured();
                 </div>
             <?php }
         } else {
-            echo "Not Categories found!";
+            echo "No Categories found!";
         }?>
     </div>
 </section>
