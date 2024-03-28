@@ -1,6 +1,8 @@
 <?php
 session_start();
 $page = 'categories';
+if(isset($_POST["submit"])) (new CategoryController())->store($_POST);
+
 
 ?>
 
@@ -14,7 +16,7 @@ $page = 'categories';
                     Add Category
                 </h3>
             </div>
-            <form action="/views/categories/store.php" method="POST" enctype="multipart/form-data">
+            <form action="/category/create" method="POST" enctype="multipart/form-data">
                 <div class="mb-4 flex flex-col gap-4">
                     <div>
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Name</label>

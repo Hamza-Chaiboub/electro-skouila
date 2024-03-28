@@ -1,6 +1,8 @@
 <?php
 
 require_once 'DatabaseConnection.php';
+require_once __DIR__ . '/../Core/ErrorHandler.php';
+require_once __DIR__ . '/../Core/Uploader.php';
 class CategoryController
 {
     private DatabaseConnection $database;
@@ -45,7 +47,27 @@ class CategoryController
     {
         $query = "INSERT INTO categories (name, description, image, featured) values (?, ?, ?, ?)";
 
-        $this->database->run($query, [$data["name"], $data["description"], $data["image"], $data["featured"]]);
+        if(isset($_POST['submit'])){
+            if(!empty($_POST["name"])){
+                $data["featured"] = $_POST["featured"] ?? 0;
+                $data["name"] = $_POST["name"];
+                $data["description"] = $_POST["description"];
+                $data["image"] = (new ImageUploader($_FILES))->storeImage();
+
+                header('Location: /');
+
+                $this->database->run($query, [$data["name"], $data["description"], $data["image"], $data["featured"]]);
+                exit();
+            }else {
+                ErrorHandler::getError('name', 'Category name cannot be empty');
+                //var_dump($_SESSION["error"]);
+                //$error = "Please type a name for the new category!";
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+                exit();
+            }
+        }
+
+
     }
 
     public function view($id)
