@@ -10,5 +10,10 @@ function view($path, $attributes = []): void
 
     extract($attributes);
 
-    require root_path('views/' . $path);
+    require root_path('views/' . $path . '.php');
+}
+
+function storagePath($path): string
+{
+    return root_path('storage/' . $path);
 }

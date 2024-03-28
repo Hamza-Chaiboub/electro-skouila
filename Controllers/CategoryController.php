@@ -21,7 +21,7 @@ class CategoryController
             $categories = null;
         }
 
-        view('categories/categories.php', ['categories' => $categories, 'page' => 'categories']);
+        view('categories/categories', ['categories' => $categories, 'page' => 'categories']);
 
         $this->database->closeConnection();
     }
@@ -42,7 +42,7 @@ class CategoryController
 
     public function create(): void
     {
-        view('categories/create.php', ["page" => "categories"]);
+        view('categories/create', ["page" => "categories"]);
     }
 
     public function store($data): void
@@ -82,7 +82,7 @@ class CategoryController
             $category = null;
         }
 
-        view('categories/view.php', ['category' => $category, 'page' => 'categories']);
+        view('categories/view', ['category' => $category, 'page' => 'categories']);
     }
 
     public function edit($id)
@@ -95,7 +95,7 @@ class CategoryController
             $category = null;
         }
 
-        view('categories/edit.php', ['category' => $category, 'page' => 'categories']);
+        view('categories/edit', ['category' => $category, 'page' => 'categories']);
     }
 
     public function update($id, $data): void
