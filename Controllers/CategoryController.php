@@ -118,16 +118,14 @@ class CategoryController
 
                 header('Location: /');
 
-                exit();
-
-
-            } else {
+            }
+            else {
                 ErrorHandler::getError('name', 'Category name cannot be empty');
                 //var_dump($_SESSION["error"]);
                 //$error = "Please type a name for the new category!";
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
-                exit();
             }
+            exit();
         }
     }
 

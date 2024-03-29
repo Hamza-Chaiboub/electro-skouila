@@ -6,9 +6,9 @@ class ImageUploader
     private $image_type;
     private $image_tmp;
     private $image_size;
-    private $upload_folder = __DIR__ . "/../public/storage/img/";
-    private $max_size = 2 * 1024 * 1024;
-    private $allowed_types = ["image/jpeg", "image/jpg", "image/png", "image/gif"];
+    private string $upload_folder = __DIR__ . "/../public/storage/img/";
+    private int|float $max_size = 2 * 1024 * 1024;
+    private array $allowed_types = ["image/jpeg", "image/jpg", "image/png", "image/gif", "image/avif"];
     public $error;
 
     public function __construct($file)

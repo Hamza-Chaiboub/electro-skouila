@@ -1,3 +1,8 @@
+<?php
+if(!isset($_SESSION)) { session_start(); }
+$user = $_SESSION["user"];
+$_SESSION["logged_in"] = true;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,15 +33,22 @@
             <a href="#" class="link">Contact</a>
         </div>
         <div class="buttons">
-            <a href="" class="link login">Login</a>
-            <a href="" class="link signup" id="test">Signup</a>
+            <?php if(!$_SESSION["logged_in"]){ ?>
+                <a href="" class="link login">Login</a>
+                <a href="" class="link signup" id="test">Signup</a>
+            <?php } else { ?>
+                <a href="/user/<?= $user->id ?>/<?= $user->username ?>" class="link text-xl capitalize">
+                    <i class="fa-solid fa-user"></i>
+                    <?php echo ' ' . $user->first_name . ' ' . $user->last_name ?>
+                </a>
+            <?php } ?>
         </div>
     </nav>
     <div class="mobile_menu hidden" id="mobile_menu">
-        <a href="/" class="link">Home</a>
-        <a href="/views/categories/categories.php" class="link">Categories</a>
-        <a href="/views/products.php" class="link">Products</a>
-        <a href="" class="link">About</a>
-        <a href="" class="link">Contact</a>
+        <a href="/" class="link <?php echo $page == 'home' ? 'active' : '' ?>">Home</a>
+        <a href="/categories" class="link <?php echo $page == 'categories' ? 'active' : '' ?>">Categories</a>
+        <a href="/views/products.php" class="link <?php echo $page == 'products' ? 'active' : '' ?>">Products</a>
+        <a href="#" class="link">About</a>
+        <a href="#" class="link">Contact</a>
     </div>
 </header>

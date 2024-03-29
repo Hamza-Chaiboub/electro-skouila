@@ -4,7 +4,7 @@ class MyRouter
 {
     protected array $routes =[];
 
-    private $routeExists = false;
+    private bool $routeExists = false;
 
     /*
      * Add routes to the $routes
@@ -21,12 +21,11 @@ class MyRouter
         ];
     }
 
-    public function matchRoute($uri)
+    public function matchRoute($uri): void
     {
         //$this->routes["method"] = $_SERVER['REQUEST_METHOD'];
         $uri = trim($uri, '/');
 
-        $valid = false;
         foreach ($this->routes as $route) {
 
             $routeNames = [];
@@ -42,7 +41,7 @@ class MyRouter
 
 
 
-            $routeAsRegex = "@^" . preg_replace_callback('/\{\w+(:([^}]+))?}/', fn($m) => isset($m[2]) ? "({$m[2]})" : '(\w+)', $route["url"]) . "$@";
+            $routeAsRegex = "@^" . preg_replace_callback('/\{\w+(:([^}]+))?}/', fn($m) => isset($m[2]) ? "($m[2])" : '(\w+)', $route["url"]) . "$@";
 
             if (preg_match_all($routeAsRegex, $uri, $valueMatches)) {
                 $value = [];
