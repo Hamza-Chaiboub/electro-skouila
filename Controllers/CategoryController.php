@@ -133,6 +133,15 @@ class CategoryController
 
     public function destroy($id): void
     {
+        //get image path
+        $imgPath = $this->database->run('SELECT image FROM categories WHERE `id` = :id', ['id' => $id])->fetch();
+
+        if(!empty($imgPath->image)) {
+            unlink(__DIR__ . '/../public' . $imgPath->image);
+        }
+
+
+        //die();
         $query = "DELETE FROM categories WHERE `id` = :id";
         $args = ['id' => $id];
         $this->database->run($query, $args);

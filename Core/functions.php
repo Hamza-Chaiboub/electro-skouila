@@ -12,8 +12,3 @@ function view($path, $attributes = []): void
 
     require root_path('views/' . $path . '.php');
 }
-
-function storagePath($path): string
-{
-    return root_path('storage/' . $path);
-}

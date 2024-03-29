@@ -4,7 +4,14 @@
  * @var $category
  */
 
-if(isset($_POST["submit"])) (new CategoryController())->update($category->id, $_POST);
+if(isset($_POST["submit"])) {
+    (new CategoryController())->update($category->id, $_POST);
+}
+
+if(!isset($category->id)) {
+    view('errors/not-found');
+    die();
+}
 
 include(__DIR__ . '/../../Components/navbar.php');
 

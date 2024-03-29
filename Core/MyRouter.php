@@ -2,13 +2,15 @@
 
 class MyRouter
 {
-    protected $routes =[];
+    protected array $routes =[];
+
+    private $routeExists = false;
 
     /*
      * Add routes to the $routes
      */
 
-    public function addRoute($method, $url, $controller, $function)
+    public function addRoute($method, $url, $controller, $function): void
     {
         //$this->routes["method"] = $method;
 
@@ -24,8 +26,9 @@ class MyRouter
         //$this->routes["method"] = $_SERVER['REQUEST_METHOD'];
         $uri = trim($uri, '/');
 
-
+        $valid = false;
         foreach ($this->routes as $route) {
+
             $routeNames = [];
             $route["url"] = trim($route["url"], '/');
             if (preg_match_all('/\{(\w+)(:[^}]+)?/', $route["url"], $matches)) {
@@ -37,6 +40,8 @@ class MyRouter
              * /category/{id} to /category/(\w+)
              */
 
+
+
             $routeAsRegex = "@^" . preg_replace_callback('/\{\w+(:([^}]+))?}/', fn($m) => isset($m[2]) ? "({$m[2]})" : '(\w+)', $route["url"]) . "$@";
 
             if (preg_match_all($routeAsRegex, $uri, $valueMatches)) {
@@ -45,19 +50,23 @@ class MyRouter
                     $value[] = $valueMatches[$i][0];
                 }
                 $routeParams = array_combine($routeNames, $value);
+                $this->routeExists = true;
 
-                /*echo '<pre>';
-                print_r($valueMatches);
-                echo '</pre>';*/
+
+                //echo '<pre>';
+                //print_r($valueMatches);
+                //echo '</pre>';
+                //die();
             }
-
 
             $controller = $route["controller"];
             $function = $route["function"];
 
+
             if (class_exists($controller) && !empty($valueMatches[0]) && $uri == $valueMatches[0][0]) {
+
                 $controllerInstance = new $controller();
-                //echo "{$uri} is equal to {$valueMatches[0][0]}";
+
                 if (method_exists($controller, $function)) {
                     if(!empty($routeParams)) {
                         $controllerInstance->$function(($routeParams['id']));
@@ -66,7 +75,13 @@ class MyRouter
                     }
 
                 }
+                else {
+                    echo "Page not found 404";
+                }
             }
+        }
+        if(!$this->routeExists) {
+            view('errors/not-found');
         }
     }
 }
