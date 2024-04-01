@@ -2,7 +2,7 @@
 /**
  * @var string $page
  */
-setSession();
+//setSession();
 if($_SESSION["logged_in"])
 {
     $user = $_SESSION["user"];
@@ -42,9 +42,9 @@ if($_SESSION["logged_in"])
                 <a href="/login" class="link login">Login</a>
                 <a href="/register" class="link signup" id="test">Signup</a>
             <?php } else { ?>
-                <a href="/profile/<?= $user->id ?>/<?= $user->username ?>" class="link text-xl">
+                <a href="/profile/<?= Auth::query(["id"]) . '/' . Auth::query(["username"]) ?>" class="link text-xl">
                     <i class="fa-solid fa-user"></i>
-                    <?php echo ' ' . $user->username ?>
+                    <?= ' ' . Auth::query(["username"]) ?>
                 </a>
                 <a href="/user/logout" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg px-5 py-3 text-center">Logout</a>
             <?php } ?>

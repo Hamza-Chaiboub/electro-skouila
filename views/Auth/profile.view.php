@@ -6,31 +6,31 @@ include root_path('Components/navbar.php');
         <div class="p-3">
             <div class="flex items-center justify-between mb-2">
                 <a href="#">
-                    <img class="w-10 h-10 rounded-full" src="" alt="<?php echo $user->first_name  . ' ' . $user->last_name ?>">
+                    <img class="w-10 h-10 rounded-full" src="" alt="<?= Auth::query(["first_name"]).' '.Auth::query(["last_name"]) ?>">
                 </a>
                 <div>
                     <a href="#" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</a>
                 </div>
             </div>
             <p class="text-base font-semibold leading-none text-gray-900 dark:text-white">
-                <h1 class="text-black capitalize"><?php echo $user->first_name  . ' ' . $user->last_name ?></h1>
+                <h1 class="text-black capitalize"><?= Auth::query(["first_name"]).' '.Auth::query(["last_name"]) ?></h1>
             </p>
             <p class="mb-3 text-sm font-normal">
-                @<?php echo $user->username ?>
+                @<?= Auth::query(["username"]) ?>
             </p>
-            <p class="mb-4 text-sm inline">User type: <h2 class="inline text-slate-900 capitalize font-bold"><?php echo $user->role ?></h2>.</p>
-            <p class="mb-4 text-sm inline">Address: <h2 class="inline text-slate-900 capitalize font-bold"><?php echo $user->address ?></h2>.</p>
+            <p class="mb-4 text-sm inline">User type: <h2 class="inline text-slate-900 capitalize font-bold"><?= Auth::query(["role"]) ?></h2>.</p>
+            <p class="mb-4 text-sm inline">Address: <h2 class="inline text-slate-900 capitalize font-bold"><?= Auth::query(["address"]) ?></h2>.</p>
             <ul class="flex text-sm">
                 <li class="me-2">
-                    <a href="mailto:<?php echo $user->email ?>" class="hover:underline">
+                    <a href="mailto:<?= Auth::query(["email"]) ?>" class="hover:underline">
                         <span>Email: </span>
-                        <span class="font-semibold text-gray-900 dark:text-white"><?php echo $user->email ?></span>
+                        <span class="font-semibold text-gray-900 dark:text-white"><?= Auth::query(["email"]) ?></span>
                     </a>
                 </li>
                 <li>
-                    <a href="tel:<?php echo $user->phone_number ?>" class="hover:underline">
+                    <a href="tel:<?= Auth::query(["phone_number"]) ?>" class="hover:underline">
                         <span>Phone Number: </span>
-                        <span class="font-semibold text-gray-900 dark:text-white"><?php echo $user->phone_number ?></span>
+                        <span class="font-semibold text-gray-900 dark:text-white"><?= Auth::query(["phone_number"]) ?></span>
                     </a>
                 </li>
             </ul>

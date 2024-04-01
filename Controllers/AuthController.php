@@ -51,7 +51,7 @@ class AuthController
 
     public static function login($error = "")
     {
-        if(isset($_SESSION["logged_in"]) && $_SESSION["logged_in"]){
+        if(!$_SESSION["logged_in"]){
             view('Auth/login.view', ["error" => $error, "title" => "Login"]);
         }
         else {
@@ -61,7 +61,7 @@ class AuthController
 
     public static function register($error = "")
     {
-        if(isset($_SESSION["logged_in"])){
+        if(!$_SESSION["logged_in"]){
             view('Auth/register.view', ["error" => $error, "title" => "Register"]);
         }
         else {
@@ -80,7 +80,8 @@ class AuthController
                 if($user->password === $_POST["password"]) {
                     setSession();
                     $_SESSION["logged_in"] = true;
-                    $_SESSION["user"] =$user;
+                    $_SESSION["id"] = $user->id;
+                    $_SESSION["user"] = $user;
                     //return self::view($user->id);
                     header("Location: /profile/{$user->id}/{$user->username}");
                 }else {

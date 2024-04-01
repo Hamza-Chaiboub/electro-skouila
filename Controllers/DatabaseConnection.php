@@ -2,7 +2,7 @@
 
 class DatabaseConnection
 {
-    static PDO|null $db;
+    static $db;
 
     public function __construct()
     {
@@ -16,7 +16,7 @@ class DatabaseConnection
         return self::$db = $db;
     }
 
-    public function run($sql, $args = [])
+    public static function run($sql, $args = [])
     {
         if (empty($args)) {
             return self::$db->query($sql);
@@ -41,9 +41,9 @@ class DatabaseConnection
         return $stmt;
     }
 
-    public function record($sql, $args = [])
+    public static function record($sql, $args = [])
     {
-        return $this->run($sql, $args)->fetch();
+        return self::run($sql, $args)->fetch();
     }
 
     public static function closeConnection()

@@ -10,6 +10,7 @@ require root_path('Controllers/DatabaseConnection.php');
 require root_path('Controllers/CategoryController.php');
 require root_path('Controllers/HomeController.php');
 require root_path('Controllers/AuthController.php');
+require root_path('Core/Auth.php');
 
 $router->addRoute('GET', '/','HomeController', 'index');
 
