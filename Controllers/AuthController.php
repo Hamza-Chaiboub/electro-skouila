@@ -81,7 +81,7 @@ class AuthController
                     setSession();
                     $_SESSION["logged_in"] = true;
                     $_SESSION["id"] = $user->id;
-                    $_SESSION["user"] = $user;
+                    $_SESSION["user"] = Auth::getAll();
                     //return self::view($user->id);
                     header("Location: /profile/{$user->id}/{$user->username}");
                 }else {
