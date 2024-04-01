@@ -6,8 +6,6 @@ setSession();
 if($_SESSION["logged_in"])
 {
     $user = $_SESSION["user"];
-}else {
-    $_SESSION
 }
 ?>
 <!DOCTYPE html>

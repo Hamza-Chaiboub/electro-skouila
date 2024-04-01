@@ -98,20 +98,20 @@ class CategoryController
         view('categories/edit', ['category' => $category, 'page' => 'categories']);
     }
 
-    public function update($id, $data): void
+    public function update(): void
     {
         $query = "UPDATE categories
                   SET name = :name, description = :description, image = :image, featured = :featured
                   WHERE `id` = :id";
         if(isset($_POST['submit'])) {
-            if (!empty($data["name"])) {
+            if (!empty($_POST["name"])) {
 
                 $params = [
-                    "name" => $data["name"],
-                    "description" => $data["description"],
+                    "name" => $_POST["name"],
+                    "description" => $_POST["description"],
                     "image" => (new ImageUploader($_FILES))->storeImage() ?? $_POST["image"],
-                    "featured" => $data["featured"] ?? 0,
-                    'id' => $id
+                    "featured" => $_POST["featured"] ?? 0,
+                    'id' => $_POST["id"]
                 ];
 
                 $this->database->run($query, $params);
