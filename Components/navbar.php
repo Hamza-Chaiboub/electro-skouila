@@ -1,14 +1,21 @@
 <?php
-if(!isset($_SESSION)) { session_start(); }
-$user = $_SESSION["user"];
-$_SESSION["logged_in"] = true;
+/**
+ * @var string $page
+ */
+setSession();
+if($_SESSION["logged_in"])
+{
+    $user = $_SESSION["user"];
+}else {
+    $_SESSION
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Electro-Skouila</title>
+    <title>Electro-Skouila - <?php echo $title ?></title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="/css/output.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -34,13 +41,14 @@ $_SESSION["logged_in"] = true;
         </div>
         <div class="buttons">
             <?php if(!$_SESSION["logged_in"]){ ?>
-                <a href="" class="link login">Login</a>
-                <a href="" class="link signup" id="test">Signup</a>
+                <a href="/login" class="link login">Login</a>
+                <a href="/register" class="link signup" id="test">Signup</a>
             <?php } else { ?>
-                <a href="/user/<?= $user->id ?>/<?= $user->username ?>" class="link text-xl capitalize">
+                <a href="/profile/<?= $user->id ?>/<?= $user->username ?>" class="link text-xl">
                     <i class="fa-solid fa-user"></i>
-                    <?php echo ' ' . $user->first_name . ' ' . $user->last_name ?>
+                    <?php echo ' ' . $user->username ?>
                 </a>
+                <a href="/user/logout" class="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-lg px-5 py-3 text-center">Logout</a>
             <?php } ?>
         </div>
     </nav>

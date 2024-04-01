@@ -12,3 +12,8 @@ function view($path, $attributes = []): void
 
     require root_path('views/' . $path . '.php');
 }
+
+function setSession(): void
+{
+    if(!isset($_SESSION)) { session_start(); }
+}

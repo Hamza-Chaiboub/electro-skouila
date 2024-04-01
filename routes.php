@@ -21,5 +21,9 @@ $router->addRoute('GET', '/category/edit/{id:\d+}',CategoryController::class, 'e
 $router->addRoute('GET', '/category/delete/{id:\d+}',CategoryController::class, 'destroy');
 
 
-$router->addRoute('GET', '/user/{id:\d+}/{username:\w+}',AuthController::class, 'view');
+$router->addRoute('GET', '/profile/{id:\d+}/{username:\w+}',AuthController::class, 'view');
+$router->addRoute('GET', '/login',AuthController::class, 'login');
+$router->addRoute('POST', '/login',AuthController::class, 'authenticate');
+$router->addRoute('GET', '/register',AuthController::class, 'register');
+$router->addRoute('POST', '/register',AuthController::class, 'storeUser');
 $router->addRoute('GET', '/user/logout',AuthController::class, 'logout');

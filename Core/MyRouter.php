@@ -15,13 +15,14 @@ class MyRouter
         //$this->routes["method"] = $method;
 
         $this->routes[] = [
+            "method" => $method,
             "url" => $url,
             "controller" => $controller,
             "function" => $function
         ];
     }
 
-    public function matchRoute($uri): void
+    public function matchRoute($uri, $method): void
     {
         //$this->routes["method"] = $_SERVER['REQUEST_METHOD'];
         $uri = trim($uri, '/');
@@ -62,7 +63,7 @@ class MyRouter
             $function = $route["function"];
 
 
-            if (class_exists($controller) && !empty($valueMatches[0]) && $uri == $valueMatches[0][0]) {
+            if (class_exists($controller) && !empty($valueMatches[0]) && $uri == $valueMatches[0][0] && $method == $route["method"]) {
 
                 $controllerInstance = new $controller();
 
