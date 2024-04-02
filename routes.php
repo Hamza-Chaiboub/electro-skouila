@@ -11,8 +11,9 @@ require root_path('Controllers/CategoryController.php');
 require root_path('Controllers/HomeController.php');
 require root_path('Controllers/AuthController.php');
 require root_path('Core/Auth.php');
+require root_path('Core/Errors.php');
 
-$router->addRoute('GET', '/','HomeController', 'index');
+$router->addRoute('GET', '/','HomeController', 'home');
 
 
 $router->addRoute('GET', '/categories',CategoryController::class, 'index');

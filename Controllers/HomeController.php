@@ -2,9 +2,9 @@
 
 class HomeController
 {
-    public function index()
+    public function home()
     {
         $title = "Home";
-        include __DIR__ . '/index.php';
+        include __DIR__ . '/home.php';
     }
 }

@@ -14,8 +14,7 @@ $routes = require root_path('routes.php');
 setSession();
 
 // Testing purposes
-//var_dump($_SESSION["id"]);
-//var_dump(Auth::query());
+
 // End testing
 
 $router->matchRoute($uri, $method);

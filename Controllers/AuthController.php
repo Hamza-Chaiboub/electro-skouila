@@ -6,7 +6,10 @@ require_once 'DatabaseConnection.php';
 class AuthController
 {
 
-    public $error;
+    /**
+     * @var array|mixed
+     */
+    public $errors = [];
     private DatabaseConnection $database;
 
     public function __construct(){
@@ -26,7 +29,22 @@ class AuthController
     public function storeUser()
     {
         //echo 'User registered';
-        self::register();
+        //self::register();
+
+        if(isset($_POST["register"])) {
+            if(empty($_POST["email"])) {$this->setErrors("email", "Email required");}
+            if(empty($_POST["password"])) {$this->setErrors("password", "Password required");}
+            if($_POST["password"] !== $_POST["confirm-password"]) {$this->setErrors("confirm-password", "The two passwords don't match");}
+        }
+
+        if(!empty($this->errors)) {
+            $this->register($this->errors);
+            unset($_SESSION["errors"]);
+            exit();
+        }
+
+        self::login();
+
     }
 
     public function editUser()
@@ -59,10 +77,10 @@ class AuthController
         }
     }
 
-    public static function register($error = "")
+    public function register($errors = [])
     {
         if(!$_SESSION["logged_in"]){
-            view('Auth/register.view', ["error" => $error, "title" => "Register"]);
+            view('Auth/register.view', ["errors" => $errors, "title" => "Register"]);
         }
         else {
             header("Location: /");
@@ -110,5 +128,12 @@ class AuthController
     public static function verifyPassword($password)
     {
 
+    }
+
+    private function setErrors(string $field, string $message)
+    {
+        setSession();
+        $this->errors[$field] = $message;
+        $_SESSION["errors"] = $this->errors;
     }
 }
