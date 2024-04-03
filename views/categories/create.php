@@ -1,6 +1,4 @@
 <?php
-if(isset($_POST["submit"])) (new CategoryController())->store($_POST);
-
 include(__DIR__ . '/../../Components/navbar.php');
 ?>
 

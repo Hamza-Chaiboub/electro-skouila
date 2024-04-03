@@ -1,5 +1,7 @@
 <?php
 
+use Random\RandomException;
+
 class DatabaseConnection
 {
     static $db;
@@ -16,7 +18,7 @@ class DatabaseConnection
         return self::$db = $db;
     }
 
-    public static function run($sql, $args = [])
+    public static function run($sql, $args = []): false|PDOStatement
     {
         if (empty($args)) {
             return self::$db->query($sql);
@@ -46,7 +48,39 @@ class DatabaseConnection
         return self::run($sql, $args)->fetch();
     }
 
-    public static function closeConnection()
+    /**
+     * @throws RandomException
+     */
+    public function insert($table, $fillable): void
+    {
+        $placeHolders = array_map(fn($v) =>  $v = "?" ,$fillable);
+        $sql = "INSERT INTO " . $table . "(". implode(",", $fillable) .", username) values (". implode(",", $placeHolders) .", ?)";
+
+        $values = [];
+
+        foreach ($_POST as $key => $value) {
+            foreach ($fillable as $fillKey) {
+                if ($fillKey === $key) {
+                    $values[] = $value;
+                }
+            }
+        }
+
+        $values[] = "user" . bin2hex(random_bytes(3));
+
+        self::run($sql, $values);
+    }
+
+    public static function checkRecordExistence($table, $column, $value)
+    {
+        $sql = "SELECT * FROM " . $table . " WHERE `" . $column . "` = :" . $column . " LIMIT 1";
+        $param = [$column => $value];
+        $stmt = self::$db->prepare($sql);
+        $stmt->execute($param);
+        return $stmt->fetch();
+    }
+
+    public static function closeConnection(): void
     {
         self::$db = null;
     }

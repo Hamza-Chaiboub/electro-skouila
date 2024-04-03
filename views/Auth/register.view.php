@@ -1,7 +1,7 @@
 <?php
 include root_path('Components/navbar.php');
 /*echo "<pre>";
-print_r($_POST);
+print_r($_SESSION["errors"]);
 echo "</pre>";*/
 
 ?>
@@ -29,7 +29,7 @@ echo "</pre>";*/
                     </div>
                     <div>
                         <label for="confirm-password" class="block mb-2 text-sm font-medium text-gray-900">Confirm password</label>
-                        <input type="confirm-password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5">
+                        <input type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5">
                         <div class="text-red-500"><?= Errors::get('confirm-password') ?></div>
                     </div>
                     <div class="flex items-start">

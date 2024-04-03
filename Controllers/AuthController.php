@@ -29,7 +29,6 @@ class AuthController extends Validator
 
     public function storeUser()
     {
-
         if(isset($_POST["register"])) {
             Validator::validateEmail($_POST["email"]);
             Validator::validatePassword($_POST["password"]);
@@ -43,8 +42,22 @@ class AuthController extends Validator
             exit();
         }
 
-        self::login();
+        $fillable = [
+            "email",
+            "password",
+        ];
 
+        self::hashPassword($_POST["password"]);
+
+        $this->database->insert("users", $fillable);
+
+        $user = DatabaseConnection::checkRecordExistence("users", "email", $_POST["email"]);
+
+        $_SESSION["logged_in"] = true;
+        $_SESSION["id"] = $user->id;
+        $_SESSION["user"] = $user;
+
+        self::login();
     }
 
     public function editUser()
@@ -125,15 +138,10 @@ class AuthController extends Validator
        header("Location: /");
     }
 
-    public static function verifyPassword($password)
+    public static function hashPassword($password): string
     {
-
+        $_POST["password"] = password_hash($password, PASSWORD_DEFAULT);
+        return $_POST["password"];
     }
 
-    private function setErrors(string $field, string $message)
-    {
-        setSession();
-        $this->errors[$field] = $message;
-        $_SESSION["errors"] = $this->errors;
-    }
 }

@@ -4,7 +4,7 @@ class Validator
 {
     public static function validateEmail($input): void
     {
-        if (isset($input)  && empty($input)) {
+        if (isset($input) && empty($input)) {
 
             Errors::set("email", "Email required");
 
@@ -12,9 +12,11 @@ class Validator
 
             Errors::set("email", "Invalid Email");
 
-            self::old(self::getKeyFromArray($_POST, $input));
-
+        } else if (DatabaseConnection::checkRecordExistence("users", "email", $input)) {
+            Errors::set("email", "Email already taken");
         }
+
+        self::old(self::getKeyFromArray($_POST, $input));
     }
 
     public static function validatePassword($input): void
@@ -33,7 +35,7 @@ class Validator
 
     public static function validatePasswordConfirmation($password, $PasswordConfirmation): void
     {
-        if($_SESSION["errors"]["password"] === null && $password !== $PasswordConfirmation) {
+        if(!isset($_SESSION["errors"]["password"]) && $password !== $PasswordConfirmation) {
 
             Errors::set("confirm-password", "Passwords don't match!");
             Errors::set("password", "Passwords don't match!");
@@ -53,7 +55,7 @@ class Validator
         return $_POST[$key] ?? null;
     }
 
-    public static function getKeyFromArray($arr, $val)
+    public static function getKeyFromArray($arr, $val): false|int|string
     {
         return array_search($val, $arr);
     }
