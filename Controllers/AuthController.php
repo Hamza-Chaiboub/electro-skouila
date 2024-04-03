@@ -108,7 +108,7 @@ class AuthController extends Validator
                                         ->fetch();
 
             if($user) {
-                if($user->password === $_POST["password"]) {
+                if(password_verify($_POST["password"], $user->password)) {
                     setSession();
                     $_SESSION["logged_in"] = true;
                     $_SESSION["id"] = $user->id;

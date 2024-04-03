@@ -48,9 +48,6 @@ class DatabaseConnection
         return self::run($sql, $args)->fetch();
     }
 
-    /**
-     * @throws RandomException
-     */
     public function insert($table, $fillable): void
     {
         $placeHolders = array_map(fn($v) =>  $v = "?" ,$fillable);
