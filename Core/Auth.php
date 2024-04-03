@@ -26,4 +26,9 @@ class Auth
         return $_SESSION["user"]->$field;
 
     }
+
+    public static function authenticated(): bool
+    {
+        return isset($_SESSION["logged_in"]) && $_SESSION["logged_in"];
+    }
 }

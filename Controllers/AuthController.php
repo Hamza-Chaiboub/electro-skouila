@@ -3,7 +3,8 @@
 use JetBrains\PhpStorm\NoReturn;
 
 require_once 'DatabaseConnection.php';
-class AuthController
+require_once __DIR__ . "/../Core/Validator.php";
+class AuthController extends Validator
 {
 
     /**
@@ -28,17 +29,16 @@ class AuthController
 
     public function storeUser()
     {
-        //echo 'User registered';
-        //self::register();
 
         if(isset($_POST["register"])) {
-            if(empty($_POST["email"])) {$this->setErrors("email", "Email required");}
-            if(empty($_POST["password"])) {$this->setErrors("password", "Password required");}
-            if($_POST["password"] !== $_POST["confirm-password"]) {$this->setErrors("confirm-password", "The two passwords don't match");}
+            Validator::validateEmail($_POST["email"]);
+            Validator::validatePassword($_POST["password"]);
+            Validator::validatePasswordConfirmation($_POST["password"], $_POST["confirm-password"]);
+            Validator::validateAcceptTerms($_POST["terms"] ?? null);
         }
 
-        if(!empty($this->errors)) {
-            $this->register($this->errors);
+        if(!empty(Errors::getAllErrors())) {
+            $this->register();
             unset($_SESSION["errors"]);
             exit();
         }
@@ -69,7 +69,7 @@ class AuthController
 
     public static function login($error = "")
     {
-        if(!$_SESSION["logged_in"]){
+        if(!Auth::authenticated()){
             view('Auth/login.view', ["error" => $error, "title" => "Login"]);
         }
         else {
@@ -79,7 +79,7 @@ class AuthController
 
     public function register($errors = [])
     {
-        if(!$_SESSION["logged_in"]){
+        if(!Auth::authenticated()){
             view('Auth/register.view', ["errors" => $errors, "title" => "Register"]);
         }
         else {

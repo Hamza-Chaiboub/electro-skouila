@@ -3,7 +3,7 @@
  * @var string $page
  */
 //setSession();
-if($_SESSION["logged_in"])
+if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
 {
     $user = $_SESSION["user"];
 }
@@ -38,7 +38,7 @@ if($_SESSION["logged_in"])
             <a href="#" class="link">Contact</a>
         </div>
         <div class="buttons">
-            <?php if(!$_SESSION["logged_in"]){ ?>
+            <?php if(!Auth::authenticated()){ ?>
                 <a href="/login" class="link login">Login</a>
                 <a href="/register" class="link signup" id="test">Signup</a>
             <?php } else { ?>
