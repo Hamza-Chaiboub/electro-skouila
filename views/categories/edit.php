@@ -46,9 +46,9 @@ include(__DIR__ . '/../../Components/navbar.php');
                 <button type="submit" name="submit" class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                     Update
                 </button>
-                <a href="/category/delete/<?php echo $category->id ?>" class="text-white inline-flex items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                <div class="text-white inline-flex items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center cursor-pointer" id="deleteButton" onclick="showModal();">
                     Delete
-                </a>
+                </div>
                 <a href="/category/<?php echo $category->id ?>" class="text-white inline-flex items-center bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
                     Cancel
                 </a>
@@ -57,6 +57,34 @@ include(__DIR__ . '/../../Components/navbar.php');
         </div>
     </div>
 </div>
+
+<div class="absolute top-0 left-0 h-screen w-full bg-gray-500/30 hidden" id="confirmModal">
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1/6 bg-slate-900 text-white p-8 rounded-lg opacity-100 text-center">
+        <h2>Are You Sure?</h2>
+        <div class="flex justify-between mt-4">
+            <button class="px-2 py-1 bg-red-600 rounded-md hover:bg-red-800" onclick="confirmDeletion(<?= $category->id ?>)">Delete</button>
+            <button class="px-2 py-1 bg-gray-600 rounded-md hover:bg-gray-800" onclick="cancelDeletion()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    let confirmModal = document.getElementById("confirmModal");
+
+    function showModal() {
+        confirmModal.classList.remove("hidden");
+    }
+
+    function confirmDeletion(id) {
+        location.replace("/category/delete/" + id);
+    }
+
+    function cancelDeletion() {
+        confirmModal.classList.add("hidden");
+    }
+
+</script>
 <?php
 include(__DIR__ . '/../../Components/footer.php');
 ?>
