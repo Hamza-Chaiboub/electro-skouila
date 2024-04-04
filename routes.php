@@ -29,6 +29,7 @@ if(Auth::authenticated() && Auth::isAdmin()) {
 
 
 $router->addRoute('GET', '/profile/{id:\d+}/{username:\w+}',AuthController::class, 'view');
+$router->addRoute('POST', '/profile/{id:\d+}/{username:\w+}',AuthController::class, 'updateUser');
 $router->addRoute('GET', '/login',AuthController::class, 'login');
 $router->addRoute('POST', '/login',AuthController::class, 'authenticate');
 $router->addRoute('GET', '/register',AuthController::class, 'register');

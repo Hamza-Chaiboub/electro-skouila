@@ -65,9 +65,40 @@ class AuthController extends Validator
         
     }
 
-    public function updateUser()
+    public function updateUser(): void
     {
-        
+        $query = "UPDATE users
+                  SET first_name = :first_name, last_name = :last_name, role = :role, phone_number = :phone_number, address = :address, username = :username
+                  WHERE `id` = :id";
+        if(isset($_POST['update-user'])) {
+            if (!empty($_POST["username"])) {
+
+                $params = [
+                    "first_name" => $_POST["first_name"],
+                    "last_name" => $_POST["last_name"],
+                    "role" => $_POST["role"],
+                    "phone_number" => $_POST["phone_number"],
+                    "address" => $_POST["address"],
+                    "username" => $_POST["username"],
+                    'id' => $_POST["id"]
+                ];
+
+                $this->database->run($query, $params);
+
+                $_SESSION["user"] = Auth::getAll();
+
+                header("Location: /profile/" . $_POST['id'] . "/" . $_POST["username"]);
+
+            }
+            else {
+                //ErrorHandler::getError('name', 'Category name cannot be empty');
+                //var_dump($_SESSION["error"]);
+                //$error = "Please type a name for the new category!";
+                //header('Location: ' . $_SERVER['HTTP_REFERER']);
+                die('something went wrong');
+            }
+            exit();
+        }
     }
 
     public function destroyUser()
