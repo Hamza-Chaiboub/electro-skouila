@@ -29,6 +29,13 @@ class Auth
 
     public static function authenticated(): bool
     {
+        setSession();
         return isset($_SESSION["logged_in"]) && $_SESSION["logged_in"];
+    }
+
+    public static function isAdmin()
+    {
+        setSession();
+        return isset($_SESSION["logged_in"]) && $_SESSION["user"]->role === "admin";
     }
 }

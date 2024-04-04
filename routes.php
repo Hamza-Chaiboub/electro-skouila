@@ -18,11 +18,14 @@ $router->addRoute('GET', '/','HomeController', 'home');
 
 $router->addRoute('GET', '/categories',CategoryController::class, 'index');
 $router->addRoute('GET', "/category/{id:\d+}",CategoryController::class, 'view');
-$router->addRoute('GET', '/category/create',CategoryController::class, 'create');
-$router->addRoute('POST', '/category/create',CategoryController::class, 'store');
-$router->addRoute('GET', '/category/edit/{id:\d+}',CategoryController::class, 'edit');
-$router->addRoute('POST', '/category/edit/{id:\d+}',CategoryController::class, 'update');
-$router->addRoute('GET', '/category/delete/{id:\d+}',CategoryController::class, 'destroy');
+
+if(Auth::authenticated() && Auth::isAdmin()) {
+    $router->addRoute('GET', '/category/create',CategoryController::class, 'create');
+    $router->addRoute('POST', '/category/create',CategoryController::class, 'store');
+    $router->addRoute('GET', '/category/edit/{id:\d+}',CategoryController::class, 'edit');
+    $router->addRoute('POST', '/category/edit/{id:\d+}',CategoryController::class, 'update');
+    $router->addRoute('GET', '/category/delete/{id:\d+}',CategoryController::class, 'destroy');
+}
 
 
 $router->addRoute('GET', '/profile/{id:\d+}/{username:\w+}',AuthController::class, 'view');

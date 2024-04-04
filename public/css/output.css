@@ -985,6 +985,11 @@ input[type="range"]::-ms-fill-lower {
   margin-bottom: 1.5rem;
 }
 
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .-ml-1 {
   margin-left: -0.25rem;
 }
@@ -1055,6 +1060,14 @@ input[type="range"]::-ms-fill-lower {
 
 .mt-4 {
   margin-top: 1rem;
+}
+
+.mt-8 {
+  margin-top: 2rem;
+}
+
+.mt-16 {
+  margin-top: 4rem;
 }
 
 .block {
@@ -2295,6 +2308,11 @@ input[type="range"]::-ms-fill-lower {
   .lg\:py-32 {
     padding-top: 8rem;
     padding-bottom: 8rem;
+  }
+
+  .lg\:py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
   }
 
   .lg\:text-left {

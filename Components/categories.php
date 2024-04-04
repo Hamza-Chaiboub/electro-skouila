@@ -31,12 +31,16 @@
 
 <!-- Product List Section: Categories Grid -->
 <div class="bg-white dark:bg-gray-900 dark:text-gray-100">
-    <div class="mx-auto text-center my-16">
+    <div class="mx-auto text-center mt-16">
         <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900">Categories</h2>
-        <a href="/category/create" class="bg-blue-500 text-white p-4 rounded-lg hover:bg-blue-700">Create New
-            Category</a>
+        <?php if(Auth::authenticated() && Auth::isAdmin()){ ?>
+            <div class="mt-16">
+                <a href="/category/create" class="bg-blue-500 text-white p-4 rounded-lg hover:bg-blue-700">Create New
+                    Category</a>
+            </div>
+        <?php } ?>
     </div>
-    <div class="container mx-auto px-4 py-16 lg:px-8 lg:py-32 xl:max-w-7xl">
+    <div class="container mx-auto px-4 py-16 lg:px-8 lg:py-16 xl:max-w-7xl">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             <?php
             if ($categories !== null) {

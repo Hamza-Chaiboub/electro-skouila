@@ -1,12 +1,14 @@
 <?php
 /**
  * @var string $page
+ * @var string $title
  */
 //setSession();
 if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
 {
     $user = $_SESSION["user"];
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

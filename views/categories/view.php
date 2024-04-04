@@ -28,9 +28,11 @@ include_once __DIR__ . '/../../Components/navbar.php';
                             <a class="inline-flex items-center justify-center text-sm font-semibold text-black duration-200 hover:text-blue-500 focus:outline-none focus-visible:outline-gray-600" href="#_">
                                 <span> View products   → </span>
                             </a>
+                            <?php if(Auth::authenticated() && Auth::isAdmin()){ ?>
                             <a class="inline-flex items-center justify-center text-sm font-semibold text-black duration-200 hover:text-blue-500 focus:outline-none focus-visible:outline-gray-600" href="/category/edit/<?php echo $category->id ?>">
                                 Edit
                             </a>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
