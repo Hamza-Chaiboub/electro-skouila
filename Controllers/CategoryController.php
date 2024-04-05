@@ -20,7 +20,7 @@ class CategoryController
             $categories = null;
         }
 
-        view('categories/categories', ['categories' => $categories, 'page' => 'categories']);
+        view('categories/categories', ['categories' => $categories, 'page' => 'categories', 'title' => 'All Categories']);
 
         $this->database->closeConnection();
     }
@@ -83,7 +83,7 @@ class CategoryController
             $category = null;
         }
 
-        view('categories/view', ['category' => $category, 'page' => 'categories']);
+        view('categories/view', ['category' => $category, 'page' => 'categories', 'title' => $category->name]);
     }
 
     public function edit($id)
@@ -96,7 +96,7 @@ class CategoryController
             $category = null;
         }
 
-        view('categories/edit', ['category' => $category, 'page' => 'categories']);
+        view('categories/edit', ['category' => $category, 'page' => 'categories', 'title' => $category->name]);
     }
 
     public function update(): void

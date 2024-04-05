@@ -52,5 +52,4 @@ echo "</pre>";*/
 </section>
 <?php
 include(root_path('Components/footer.php'));
-
 ?>

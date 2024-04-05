@@ -27,7 +27,7 @@ class AuthController extends Validator
         
     }
 
-    public function storeUser()
+    public function storeUser(): void
     {
         if(isset($_POST["register"])) {
             Validator::validateEmail($_POST["email"]);
@@ -45,7 +45,10 @@ class AuthController extends Validator
         $fillable = [
             "email",
             "password",
+            "profile_picture"
         ];
+
+        $_POST["profile_picture"] = "/storage/img/default-profile-picture-04-04-2024-23-34-05.jpeg";
 
         self::hashPassword($_POST["password"]);
 
@@ -67,8 +70,9 @@ class AuthController extends Validator
 
     public function updateUser(): void
     {
+        //dd($_POST);
         $query = "UPDATE users
-                  SET first_name = :first_name, last_name = :last_name, role = :role, phone_number = :phone_number, address = :address, username = :username
+                  SET first_name = :first_name, last_name = :last_name, role = :role, phone_number = :phone_number, address = :address, username = :username, profile_picture = :profile_picture
                   WHERE `id` = :id";
         if(isset($_POST['update-user'])) {
             if (!empty($_POST["username"])) {
@@ -80,8 +84,16 @@ class AuthController extends Validator
                     "phone_number" => $_POST["phone_number"],
                     "address" => $_POST["address"],
                     "username" => $_POST["username"],
+                    "profile_picture" => (new ImageUploader($_FILES,"profile_picture"))->storeImage() ?? $_POST["old_profile_picture"],
                     'id' => $_POST["id"]
                 ];
+
+                Validator::validateUsername($_POST["username"]);
+
+                if(!empty(Errors::getAllErrors())) {
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
+                    exit();
+                }
 
                 $this->database->run($query, $params);
 

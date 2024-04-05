@@ -17,3 +17,11 @@ function setSession(): void
 {
     if(!isset($_SESSION)) { session_start(); }
 }
+
+function dd($var)
+{
+    echo "<pre>";
+    echo var_dump($var);
+    echo "</pre>";
+    die();
+}

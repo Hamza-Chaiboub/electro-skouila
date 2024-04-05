@@ -11,12 +11,12 @@ class ImageUploader
     private array $allowed_types = ["image/jpeg", "image/jpg", "image/png", "image/gif", "image/avif"];
     public $error;
 
-    public function __construct($file)
+    public function __construct($file, $input_name)
     {
-        $this->image_name = $file["image"]["name"];
-        $this->image_size = $file["image"]["size"];
-        $this->image_type = $file["image"]["type"];
-        $this->image_tmp = $file["image"]["tmp_name"];
+        $this->image_name = $file[$input_name]["name"];
+        $this->image_size = $file[$input_name]["size"];
+        $this->image_type = $file[$input_name]["type"];
+        $this->image_tmp = $file[$input_name]["tmp_name"];
 
         $this->isEmpty();
 

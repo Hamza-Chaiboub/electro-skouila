@@ -19,6 +19,23 @@ class Validator
         self::old(self::getKeyFromArray($_POST, $input));
     }
 
+    public static function validateUsername($input): void
+    {
+        if (isset($input) && empty($input)) {
+
+            Errors::set("username", "Username required");
+
+        } else if (!preg_match('/^(?=.*[a-zA-Z0-9]).{6,10}$/', $input)) {
+
+            Errors::set("username", "Only letters and numbers are allowed [min: 6 chars, max: 10 chars]");
+
+        } else if (DatabaseConnection::checkRecordExistence("users", "username", $input) && $input !== $_SESSION["user"]->username) {
+            Errors::set("username", "Username already taken");
+        }
+
+        self::old(self::getKeyFromArray($_POST, $input));
+    }
+
     public static function validatePassword($input): void
     {
         if (isset($input) && empty($input)) {
