@@ -69,7 +69,7 @@ class MyRouter
 
                 if (method_exists($controller, $function)) {
                     if(!empty($routeParams)) {
-                        $controllerInstance->$function(($routeParams['id']));
+                        $controllerInstance->$function(...$routeParams);
                     } else {
                         $controllerInstance->$function();
                     }

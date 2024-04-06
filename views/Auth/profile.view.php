@@ -53,8 +53,8 @@ include root_path('Components/navbar.php');
                     <div class="flex flex-col justify-center items-center">
                         <img src="<?= Auth::query('profile_picture') ?>" alt="" class="object-cover rounded-full h-16 w-16">
                         <label class="mt-2 bg-slate-600 text-gray-200 rounded-md px-4 py-2 cursor-pointer hover:bg-slate-700 hover:text-white" for="profile_picture"><i class="fa-solid fa-cloud-arrow-up"></i> New Picture</label>
-                        <input type="file" name="profile_picture" id="profile_picture" class="hidden">
-                        <input type="hidden" name="old_profile_picture" value="<?= Auth::query('profile_picture') ?>">
+                        <input type="file" name="new_profile_picture" id="profile_picture" class="hidden">
+                        <input type="hidden" name="profile_picture" value="<?= Auth::query('profile_picture') ?>">
                     </div>
                 </div>
                 <div>

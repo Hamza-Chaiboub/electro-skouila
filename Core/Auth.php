@@ -8,14 +8,11 @@ class Auth
     {
         if(isset($_SESSION["id"])) {
 
-            $db = new DatabaseConnection();
-            $sql = "SELECT * FROM users WHERE `id` = :id";
+            $user = User::findById($_SESSION["id"]);
 
-            $data = $db::record($sql, ['id' => $_SESSION["id"]]);
+            if(isset($user->password)) $user->password = null;
 
-            if(isset($data->password)) $data->password = null;
-
-            return self::$allData = $data;
+            return self::$allData = $user;
         }
     }
     public static function query($field = "")

@@ -14,7 +14,7 @@ $routes = require root_path('routes.php');
 setSession();
 
 // Testing purposes
-
+//dd(User::update(1, ["name" => "Hamza"]));
 // End testing
 
 $router->matchRoute($uri, $method);

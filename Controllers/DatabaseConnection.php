@@ -48,8 +48,16 @@ class DatabaseConnection
         return self::run($sql, $args)->fetch();
     }
 
+    public function select($table, $id)
+    {
+        $sql = "SELECT * FROM $table WHERE `id` = :id";
+
+        return self::record($sql, ["id" => $id]);
+    }
+
     public function insert($table, $fillable): void
     {
+
         $placeHolders = array_map(fn($v) =>  $v = "?" ,$fillable);
         $sql = "INSERT INTO " . $table . "(". implode(",", $fillable) .", username) values (". implode(",", $placeHolders) .", ?)";
 
@@ -64,6 +72,27 @@ class DatabaseConnection
         }
 
         $values[] = "user" . bin2hex(random_bytes(3));
+
+        self::run($sql, $values);
+    }
+
+    public function update($table, $id, $data): void
+    {
+        $keys = [];
+        foreach ($data as $key) {
+            $keys[] = $key;
+        }
+        $placeHolders = array_map(fn($v) =>  $v = $v . " = :" . $v ,$keys);
+
+        $sql = "UPDATE " . $table . " SET " . implode(",", $placeHolders) . " WHERE `id` = :id";
+
+        $values = [];
+
+        $values["id"] =$id;
+
+        foreach ($data as $postKey) {
+            $values[$postKey] = $_POST["$postKey"];
+        }
 
         self::run($sql, $values);
     }

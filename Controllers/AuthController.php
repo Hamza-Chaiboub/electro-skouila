@@ -16,10 +16,17 @@ class AuthController extends Validator
     public function __construct(){
         $this->database = new DatabaseConnection();
     }
-    public static function view($id)
+    public static function view($id, $username): void
     {
         setSession();
-        $_SESSION["logged_in"] ? view('Auth/profile.view', ["id" => $id, "title" => "Profile"]) : header("Location: /");
+
+        if($_SESSION["user"]->id == $id && $_SESSION["user"]->username === $username) {
+            view('Auth/profile.view', ["id" => $id, "title" => "Profile"]);
+            exit();
+        }
+
+        view("errors/not-found");
+        exit();
     }
 
     public function createUser()
@@ -68,49 +75,11 @@ class AuthController extends Validator
         
     }
 
-    public function updateUser(): void
+    public function updateUser($id, $username): void
     {
-        //dd($_POST);
-        $query = "UPDATE users
-                  SET first_name = :first_name, last_name = :last_name, role = :role, phone_number = :phone_number, address = :address, username = :username, profile_picture = :profile_picture
-                  WHERE `id` = :id";
-        if(isset($_POST['update-user'])) {
-            if (!empty($_POST["username"])) {
-
-                $params = [
-                    "first_name" => $_POST["first_name"],
-                    "last_name" => $_POST["last_name"],
-                    "role" => $_POST["role"],
-                    "phone_number" => $_POST["phone_number"],
-                    "address" => $_POST["address"],
-                    "username" => $_POST["username"],
-                    "profile_picture" => (new ImageUploader($_FILES,"profile_picture"))->storeImage() ?? $_POST["old_profile_picture"],
-                    'id' => $_POST["id"]
-                ];
-
-                Validator::validateUsername($_POST["username"]);
-
-                if(!empty(Errors::getAllErrors())) {
-                    header('Location: ' . $_SERVER['HTTP_REFERER']);
-                    exit();
-                }
-
-                $this->database->run($query, $params);
-
-                $_SESSION["user"] = Auth::getAll();
-
-                header("Location: /profile/" . $_POST['id'] . "/" . $_POST["username"]);
-
-            }
-            else {
-                //ErrorHandler::getError('name', 'Category name cannot be empty');
-                //var_dump($_SESSION["error"]);
-                //$error = "Please type a name for the new category!";
-                //header('Location: ' . $_SERVER['HTTP_REFERER']);
-                die('something went wrong');
-            }
-            exit();
-        }
+        User::update($id);
+        header("Location: /profile/" . $_POST['id'] . "/" . $_POST["username"]);
+        exit();
     }
 
     public function destroyUser()
@@ -123,7 +92,7 @@ class AuthController extends Validator
         
     }
 
-    public static function login($error = "")
+    public static function login($error = ""): void
     {
         if(!Auth::authenticated()){
             view('Auth/login.view', ["error" => $error, "title" => "Login"]);
@@ -133,7 +102,7 @@ class AuthController extends Validator
         }
     }
 
-    public function register($errors = [])
+    public function register($errors = []): void
     {
         if(!Auth::authenticated()){
             view('Auth/register.view', ["errors" => $errors, "title" => "Register"]);
@@ -173,7 +142,7 @@ class AuthController extends Validator
 
     }
 
-    public function logout()
+    public function logout(): void
     {
        setSession();
        unset($_SESSION["user"]);

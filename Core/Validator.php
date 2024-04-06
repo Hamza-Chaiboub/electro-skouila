@@ -25,7 +25,7 @@ class Validator
 
             Errors::set("username", "Username required");
 
-        } else if (!preg_match('/^(?=.*[a-zA-Z0-9]).{6,10}$/', $input)) {
+        } else if (!preg_match('/^(?=.*[a-zA-Z0-9])\S{6,10}$/', $input)) {
 
             Errors::set("username", "Only letters and numbers are allowed [min: 6 chars, max: 10 chars]");
 

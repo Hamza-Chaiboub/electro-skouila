@@ -12,8 +12,10 @@ require root_path('Controllers/HomeController.php');
 require root_path('Controllers/AuthController.php');
 require root_path('Core/Auth.php');
 require root_path('Core/Errors.php');
+require root_path('Models/User.php');
 
-$router->addRoute('GET', '/','HomeController', 'home');
+$router->addRoute('GET', '/',HomeController::class, 'home');
+$router->addRoute('GET', '/not-found', HomeController::class, 'notFound');
 
 
 $router->addRoute('GET', '/categories',CategoryController::class, 'index');
@@ -28,10 +30,15 @@ if(Auth::authenticated() && Auth::isAdmin()) {
 }
 
 
-$router->addRoute('GET', '/profile/{id:\d+}/{username:\w+}',AuthController::class, 'view');
-$router->addRoute('POST', '/profile/{id:\d+}/{username:\w+}',AuthController::class, 'updateUser');
+if (Auth::authenticated()) {
+    $router->addRoute('GET', '/profile/{id:\d+}/{username:\w+}',AuthController::class, 'view');
+    $router->addRoute('POST', '/profile/{id:\d+}/{username:\w+}',AuthController::class, 'updateUser');
+    $router->addRoute('GET', '/user/logout',AuthController::class, 'logout');
+}
+
 $router->addRoute('GET', '/login',AuthController::class, 'login');
 $router->addRoute('POST', '/login',AuthController::class, 'authenticate');
 $router->addRoute('GET', '/register',AuthController::class, 'register');
 $router->addRoute('POST', '/register',AuthController::class, 'storeUser');
-$router->addRoute('GET', '/user/logout',AuthController::class, 'logout');
+
+
