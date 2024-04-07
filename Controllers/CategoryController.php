@@ -54,7 +54,7 @@ class CategoryController
                     "featured" => $_POST["featured"] ?? 0,
                     "name" => $_POST["name"],
                     "description" => $_POST["description"],
-                    "image" => (new ImageUploader($_FILES))->storeImage(),
+                    "image" => (new ImageUploader($_FILES, "image"))->storeImage(),
                 ];
 
                 $this->database->run($query, $data);
@@ -99,7 +99,7 @@ class CategoryController
         view('categories/edit', ['category' => $category, 'page' => 'categories', 'title' => $category->name]);
     }
 
-    public function update(): void
+    public function update($id): void
     {
         $query = "UPDATE categories
                   SET name = :name, description = :description, image = :image, featured = :featured
@@ -110,9 +110,9 @@ class CategoryController
                 $params = [
                     "name" => $_POST["name"],
                     "description" => $_POST["description"],
-                    "image" => (new ImageUploader($_FILES))->storeImage() ?? $_POST["image"],
+                    "image" => (new ImageUploader($_FILES, "image"))->storeImage() ?? $_POST["image"],
                     "featured" => $_POST["featured"] ?? 0,
-                    'id' => $_POST["id"]
+                    'id' => $id
                 ];
 
                 $this->database->run($query, $params);

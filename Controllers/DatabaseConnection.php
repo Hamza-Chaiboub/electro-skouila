@@ -55,7 +55,7 @@ class DatabaseConnection
         return self::record($sql, ["id" => $id]);
     }
 
-    public function insert($table, $fillable): void
+    public static function insert($table, $fillable): void
     {
 
         $placeHolders = array_map(fn($v) =>  $v = "?" ,$fillable);
