@@ -12,6 +12,7 @@ require root_path('Controllers/HomeController.php');
 require root_path('Controllers/AuthController.php');
 require root_path('Core/Auth.php');
 require root_path('Core/Errors.php');
+require root_path('Core/Validator.php');
 require root_path('Models/User.php');
 
 $router->addRoute('GET', '/',HomeController::class, 'home');

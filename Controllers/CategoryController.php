@@ -73,7 +73,7 @@ class CategoryController
 
     }
 
-    public function view($id)
+    public function view($id): void
     {
         $query = "SELECT * FROM categories WHERE `id` = :id LIMIT 1";
 
@@ -86,7 +86,7 @@ class CategoryController
         view('categories/view', ['category' => $category, 'page' => 'categories', 'title' => $category->name]);
     }
 
-    public function edit($id)
+    public function edit($id): void
     {
         $query = "SELECT * FROM categories where `id` = :id LIMIT 1";
 
@@ -139,8 +139,6 @@ class CategoryController
             unlink(__DIR__ . '/../public' . $imgPath->image);
         }
 
-
-        //die();
         $query = "DELETE FROM categories WHERE `id` = :id";
         $args = ['id' => $id];
         $this->database->run($query, $args);

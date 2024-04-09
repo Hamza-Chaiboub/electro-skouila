@@ -22,13 +22,13 @@ class User
         static::$table = 'users';
     }
 
-    public static function findById($id)
+    public static function findBy($field)
     {
-        new User();
-        return static::$database->select(static::$table, $id);
+        new static();
+        return static::$database->select(static::$table, $field);
     }
 
-    public static function save()
+    public static function save(): void
     {
         new static();
         if(isset($_POST["register"])) {
@@ -50,7 +50,7 @@ class User
             "profile_picture"
         ];
 
-        $_POST["profile_picture"] = "/storage/img/default-profile-picture-04-04-2024-23-34-05.jpeg";
+        $_POST["profile_picture"] = "/storage/img/default-profile-picture.jpeg";
 
         AuthController::hashPassword($_POST["password"]);
 
@@ -62,15 +62,19 @@ class User
         $_SESSION["id"] = $user->id;
         $_SESSION["user"] = $user;
 
-        self::login();
+        AuthController::login();
     }
 
-    public static function update($id)
+    public static function update($id): void
     {
         new static();
 
         if ( isset($_POST["update-user"]) ) {
-            $_POST["profile_picture"] = (new ImageUploader($_FILES,"new_profile_picture"))->storeImage() ?? $_POST["profile_picture"];
+            $old_profile_picture = $_POST["profile_picture"];
+
+            $new_image = new ImageUploader($_FILES,"new_profile_picture");
+
+            $_POST["profile_picture"] = $new_image->storeImage() ?? $_POST["profile_picture"];
 
             $_POST["email"] = Auth::getAll()->email;
 
@@ -81,9 +85,48 @@ class User
                 exit();
             }
 
+            if (!$new_image->error && isset($old_profile_picture)) {
+                unlink(__DIR__ . '/../public' . $old_profile_picture);
+            }
+
             static::$database->update(static::$table, $id, static::$fillable);
 
             $_SESSION["user"] = Auth::getAll();
         }
+
+        header("Location: /profile/" . $_POST['id'] . "/" . $_POST["username"]);
+        exit();
+    }
+
+    public static function auth(): void
+    {
+        new static();
+        if(isset($_POST["submit"])) {
+            $user = static::findBy(["email" => $_POST["email"]]);
+
+            if($user) {
+                if(password_verify($_POST["password"], $user->password)) {
+                    setSession();
+                    $_SESSION["logged_in"] = true;
+                    $_SESSION["id"] = $user->id;
+                    $_SESSION["user"] = Auth::getAll();
+                    //return self::view($user->id);
+                    header("Location: /profile/{$user->id}/{$user->username}");
+                    exit();
+                }
+            }
+            Errors::set('email', 'Email or password or both are incorrect');
+        }
+
+        AuthController::login();
+    }
+
+    public static function deauth(): void
+    {
+        new static();
+        setSession();
+        unset($_SESSION["user"]);
+        $_SESSION["logged_in"] = false;
+        header("Location: /");
     }
 }

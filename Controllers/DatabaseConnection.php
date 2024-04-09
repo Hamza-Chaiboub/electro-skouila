@@ -48,11 +48,11 @@ class DatabaseConnection
         return self::run($sql, $args)->fetch();
     }
 
-    public function select($table, $id)
+    public function select($table, $field)
     {
-        $sql = "SELECT * FROM $table WHERE `id` = :id";
+        $sql = "SELECT * FROM $table WHERE `". array_key_first($field) ."` = :" . array_key_first($field);
 
-        return self::record($sql, ["id" => $id]);
+        return self::record($sql, [array_key_first($field) => $field[array_key_first($field)]]);
     }
 
     public static function insert($table, $fillable): void

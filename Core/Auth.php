@@ -8,9 +8,10 @@ class Auth
     {
         if(isset($_SESSION["id"])) {
 
-            $user = User::findById($_SESSION["id"]);
+            $user = User::findBy(["id" => $_SESSION["id"]]);
 
             if(isset($user->password)) $user->password = null;
+            if(!isset($user->profile_picture)) $user->profile_picture = "/storage/img/default-profile-picture.jpeg";
 
             return self::$allData = $user;
         }

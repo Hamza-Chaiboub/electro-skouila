@@ -14,7 +14,9 @@ $routes = require root_path('routes.php');
 setSession();
 
 // Testing purposes
-//dd(User::update(1, ["name" => "Hamza"]));
+//$array = ["email" => "test1@skouila.com"];
+//dd(array_key_first($array));
+//dd(User::findBy(["email" => "test1@skouila.com"]));
 // End testing
 
 $router->matchRoute($uri, $method);
