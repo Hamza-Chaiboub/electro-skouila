@@ -8,12 +8,15 @@
 
 require root_path('Controllers/DatabaseConnection.php');
 require root_path('Controllers/CategoryController.php');
+require root_path('Controllers/ProductController.php');
 require root_path('Controllers/HomeController.php');
 require root_path('Controllers/AuthController.php');
 require root_path('Core/Auth.php');
 require root_path('Core/Errors.php');
 require root_path('Core/Validator.php');
 require root_path('Models/User.php');
+require root_path('Models/Product.php');
+require root_path('Models/Category.php');
 
 $router->addRoute('GET', '/',HomeController::class, 'home');
 $router->addRoute('GET', '/not-found', HomeController::class, 'notFound');
@@ -43,3 +46,5 @@ $router->addRoute('GET', '/register',AuthController::class, 'register');
 $router->addRoute('POST', '/register',AuthController::class, 'storeUser');
 
 
+$router->addRoute('GET', '/products', ProductController::class, 'index');
+$router->addRoute('GET', '/product/{id:\d+}/{slug:\w+}', ProductController::class, 'show');

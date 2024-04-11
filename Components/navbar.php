@@ -35,7 +35,7 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
         <div class="links">
             <a href="/" class="link <?php echo $page == 'home' ? 'active' : '' ?>">Home</a>
             <a href="/categories" class="link <?php echo $page == 'categories' ? 'active' : '' ?>">Categories</a>
-            <a href="/views/products.php" class="link <?php echo $page == 'products' ? 'active' : '' ?>">Products</a>
+            <a href="/products" class="link <?php echo $page == 'products' ? 'active' : '' ?>">Products</a>
             <a href="#" class="link">About</a>
             <a href="#" class="link">Contact</a>
         </div>

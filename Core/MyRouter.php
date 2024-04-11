@@ -76,7 +76,7 @@ class MyRouter
 
                 }
                 else {
-                    echo "Page not found 404";
+                    view('errors/not-found');
                 }
             }
         }

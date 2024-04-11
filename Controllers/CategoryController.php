@@ -20,7 +20,10 @@ class CategoryController
             $categories = null;
         }
 
-        view('categories/categories', ['categories' => $categories, 'page' => 'categories', 'title' => 'All Categories']);
+        view('categories/categories', [
+            'categories' => $categories,
+            'page' => 'categories',
+            'title' => 'All Categories']);
 
         $this->database->closeConnection();
     }
@@ -75,22 +78,22 @@ class CategoryController
 
     public function view($id): void
     {
-        $query = "SELECT * FROM categories WHERE `id` = :id LIMIT 1";
-
-        $category = $this->database->record($query, ['id' => $id]);
+        $category = Category::findBy(["id" => $id]);
 
         if (! $category) {
             $category = null;
         }
 
-        view('categories/view', ['category' => $category, 'page' => 'categories', 'title' => $category->name]);
+        view('categories/view', [
+            'category' => $category,
+            'page' => 'categories',
+            'title' => $category->name
+        ]);
     }
 
     public function edit($id): void
     {
-        $query = "SELECT * FROM categories where `id` = :id LIMIT 1";
-
-        $category = $this->database->record($query, ['id' => $id]);
+        $category = Category::findBy(["id" => $id]);
 
         if (! $category) {
             $category = null;
