@@ -22,7 +22,7 @@ class AuthController
 
     public function updateUser($id, $username): void
     {
-        User::update($id);
+        User::update($id, $username);
     }
 
     public static function login(): void

@@ -10,46 +10,44 @@ class CategoryController
         $this->database = new DatabaseConnection();
     }
 
-    public function index(): void
+    public static function index(): void
     {
-        $query = "SELECT * FROM categories";
+        $categories = Category::getAll();
 
-        $categories = $this->database->run($query);
-
-        if ($categories->rowCount() <= 0) {
+        if (!$categories) {
             $categories = null;
         }
 
         view('categories/categories', [
             'categories' => $categories,
             'page' => 'categories',
-            'title' => 'All Categories']);
-
-        $this->database->closeConnection();
+            'title' => 'All Categories'
+        ]);
     }
 
-    public function featured()
+    public function featured(): ?array
     {
-        $query = "SELECT * FROM categories WHERE featured = true";
+        $categories = Category::findAllBy(['featured' => true]);
 
-        $categories = $this->database->run($query);
-        $this->database->closeConnection();
-
-        if ($categories->rowCount() <= 0) {
+        if (!$categories) {
             return null;
         }
 
         return $categories;
     }
 
-    public function create(): void
+    public static function create(): void
     {
-        view('categories/create', ["page" => "categories"]);
+        view('categories/create', [
+            "page" => "categories",
+            "title" => "Create Category"
+        ]);
     }
 
     public function store(): void
     {
-        $query = "INSERT INTO categories (name, description, image, featured) values (:name, :description, :image, :featured)";
+        Category::save();
+        /*$query = "INSERT INTO categories (name, description, image, featured) values (:name, :description, :image, :featured)";
 
         if(isset($_POST['submit'])){
             if(!empty($_POST["name"])){
@@ -63,17 +61,12 @@ class CategoryController
                 $this->database->run($query, $data);
                 header('Location: /');
 
-                //$this->database->run($query, [$data["name"], $data["description"], $data["image"], $data["featured"]]);
             }else {
                 ErrorHandler::getError('name', 'Category name cannot be empty');
-                //var_dump($_SESSION["error"]);
-                //$error = "Please type a name for the new category!";
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
             }
             exit();
-        }
-
-
+        }*/
     }
 
     public function view($id): void
@@ -104,47 +97,20 @@ class CategoryController
 
     public function update($id): void
     {
-        $query = "UPDATE categories
-                  SET name = :name, description = :description, image = :image, featured = :featured
-                  WHERE `id` = :id";
-        if(isset($_POST['submit'])) {
-            if (!empty($_POST["name"])) {
-
-                $params = [
-                    "name" => $_POST["name"],
-                    "description" => $_POST["description"],
-                    "image" => (new ImageUploader($_FILES, "image"))->storeImage() ?? $_POST["image"],
-                    "featured" => $_POST["featured"] ?? 0,
-                    'id' => $id
-                ];
-
-                $this->database->run($query, $params);
-
-                header('Location: /');
-
-            }
-            else {
-                ErrorHandler::getError('name', 'Category name cannot be empty');
-                //var_dump($_SESSION["error"]);
-                //$error = "Please type a name for the new category!";
-                header('Location: ' . $_SERVER['HTTP_REFERER']);
-            }
-            exit();
-        }
+        Category::update($id);
     }
 
     public function destroy($id): void
     {
         //get image path
-        $imgPath = $this->database->run('SELECT image FROM categories WHERE `id` = :id', ['id' => $id])->fetch();
+        $category = Category::findBy(['id' => $id]);
 
-        if(!empty($imgPath->image)) {
-            unlink(__DIR__ . '/../public' . $imgPath->image);
+        if(file_exists(__DIR__ . '/../public' . $category->image)) {
+            unlink(__DIR__ . '/../public' . $category->image);
         }
 
-        $query = "DELETE FROM categories WHERE `id` = :id";
-        $args = ['id' => $id];
-        $this->database->run($query, $args);
+        Category::destroy($id);
+
         header('location: /categories');
     }
 

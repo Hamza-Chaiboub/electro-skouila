@@ -1,12 +1,10 @@
 <?php
 
-class User
+class User extends Model
 {
+    protected static string $table = "users";
 
-    protected static DatabaseConnection $database;
-    private static string $table;
-
-    private static array $fillable = [
+    protected static array $fillable = [
         "first_name",
         "last_name",
         "username",
@@ -16,17 +14,6 @@ class User
         "address",
         "profile_picture"
     ];
-    public function __construct()
-    {
-        static::$database = new DatabaseConnection();
-        static::$table = 'users';
-    }
-
-    public static function findBy($field)
-    {
-        new static();
-        return static::$database->select(static::$table, $field);
-    }
 
     public static function save(): void
     {
@@ -47,12 +34,15 @@ class User
         $fillable = [
             "email",
             "password",
-            "profile_picture"
+            "profile_picture",
+            "username"
         ];
 
         $_POST["profile_picture"] = "/storage/img/default-profile-picture.jpeg";
 
         AuthController::hashPassword($_POST["password"]);
+
+        $_POST['username'] = "user" . bin2hex(random_bytes(3));
 
         DatabaseConnection::insert(static::$table, $fillable);
 
@@ -65,7 +55,7 @@ class User
         AuthController::login();
     }
 
-    public static function update($id): void
+    public static function update($id, $username): void
     {
         new static();
 
@@ -76,9 +66,10 @@ class User
 
             $_POST["profile_picture"] = $new_image->storeImage() ?? $_POST["profile_picture"];
 
-            $_POST["email"] = Auth::getAll()->email;
+            $_POST["email"] = Auth::getAllUserData()->email;
 
-            Validator::validateUsername($_POST["username"]);
+            //Validator::validateUsername($_POST["username"]);
+            Validator::validateUsername($username);
 
             if(!empty(Errors::getAllErrors())) {
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -91,7 +82,7 @@ class User
 
             static::$database->update(static::$table, $id, static::$fillable);
 
-            $_SESSION["user"] = Auth::getAll();
+            $_SESSION["user"] = Auth::getAllUserData();
         }
 
         header("Location: /profile/" . $_POST['id'] . "/" . $_POST["username"]);
@@ -109,7 +100,7 @@ class User
                     setSession();
                     $_SESSION["logged_in"] = true;
                     $_SESSION["id"] = $user->id;
-                    $_SESSION["user"] = Auth::getAll();
+                    $_SESSION["user"] = Auth::getAllUserData();
                     //return self::view($user->id);
                     header("Location: /profile/{$user->id}/{$user->username}");
                     exit();
@@ -118,7 +109,11 @@ class User
             Errors::set('email', 'Email or password or both are incorrect');
         }
 
-        AuthController::login();
+        if(!empty(Errors::getAllErrors())) {
+            AuthController::login();
+            unset($_SESSION["errors"]);
+            exit();
+        }
     }
 
     public static function deauth(): void

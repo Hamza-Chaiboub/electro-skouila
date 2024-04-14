@@ -4,6 +4,7 @@ require_once __DIR__ . '/../../Controllers/CategoryController.php';
     /**
      * @var $category
      */
+$products = Product::findAllBy(["category_id" => $category->id]);
 
 include_once __DIR__ . '/../../Components/navbar.php';
 ?>
@@ -25,7 +26,7 @@ include_once __DIR__ . '/../../Components/navbar.php';
                             </p>
                         </div>
                         <div class="flex justify-center gap-3 mt-10 lg:justify-start">
-                            <a class="inline-flex items-center justify-center text-sm font-semibold text-black duration-200 hover:text-blue-500 focus:outline-none focus-visible:outline-gray-600" href="#_">
+                            <a class="inline-flex items-center justify-center text-sm font-semibold text-black duration-200 hover:text-blue-500 focus:outline-none focus-visible:outline-gray-600" href="/products/<?= $category->id ?>">
                                 <span> View products   → </span>
                             </a>
                             <?php if(Auth::authenticated() && Auth::isAdmin()){ ?>

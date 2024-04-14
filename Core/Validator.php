@@ -67,6 +67,15 @@ class Validator
         }
     }
 
+    public static function validateCategoryName($input): void
+    {
+        if (isset($input) && empty($input)) {
+
+            Errors::set("name", "Name cannot be empty");
+
+        }
+    }
+
     public static function old($key)
     {
         return $_POST[$key] ?? null;

@@ -14,6 +14,7 @@ require root_path('Controllers/AuthController.php');
 require root_path('Core/Auth.php');
 require root_path('Core/Errors.php');
 require root_path('Core/Validator.php');
+require root_path('Models/Model.php');
 require root_path('Models/User.php');
 require root_path('Models/Product.php');
 require root_path('Models/Category.php');
@@ -48,3 +49,4 @@ $router->addRoute('POST', '/register',AuthController::class, 'storeUser');
 
 $router->addRoute('GET', '/products', ProductController::class, 'index');
 $router->addRoute('GET', '/product/{id:\d+}/{slug:\w+}', ProductController::class, 'show');
+$router->addRoute('GET', '/products/{id:\d+}', ProductController::class, 'showProductsFromCategory');

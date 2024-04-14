@@ -57,6 +57,19 @@ class DatabaseConnection
         } else {
             $sql = "SELECT * FROM $table";
 
+            return self::record($sql);
+        }
+    }
+
+    public function selectAll($table, $field = []): false|array
+    {
+        if(!empty($field)) {
+            $sql = "SELECT * FROM $table WHERE `". array_key_first($field) ."` = :" . array_key_first($field);
+
+            return self::run($sql, [array_key_first($field) => $field[array_key_first($field)]])->fetchAll();
+        } else {
+            $sql = "SELECT * FROM $table";
+
             return self::run($sql)->fetchAll();
         }
     }
@@ -65,7 +78,7 @@ class DatabaseConnection
     {
 
         $placeHolders = array_map(fn($v) =>  $v = "?" ,$fillable);
-        $sql = "INSERT INTO " . $table . "(". implode(",", $fillable) .", username) values (". implode(",", $placeHolders) .", ?)";
+        $sql = "INSERT INTO " . $table . "(". implode(",", $fillable) .") values (". implode(",", $placeHolders) .")";
 
         $values = [];
 
@@ -76,8 +89,6 @@ class DatabaseConnection
                 }
             }
         }
-
-        $values[] = "user" . bin2hex(random_bytes(3));
 
         self::run($sql, $values);
     }
@@ -110,6 +121,13 @@ class DatabaseConnection
         $stmt = self::$db->prepare($sql);
         $stmt->execute($param);
         return $stmt->fetch();
+    }
+
+    public static function destroy($table, $id): void
+    {
+        $sql = "DELETE FROM " . $table . " WHERE `id` = :id";
+        $param = ["id" => $id];
+        self::run($sql, $param);
     }
 
     public static function closeConnection(): void

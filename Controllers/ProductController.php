@@ -1,8 +1,10 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 class ProductController
 {
-    public function show($id, $slug)
+    public function show($id, $slug): void
     {
         $product = Product::findBy(["id" => $id]);
         view('product/show.view', [
@@ -12,14 +14,24 @@ class ProductController
         ]);
     }
 
-    public function index()
+    public function index(): void
     {
-        $allProducts = Product::getAll();
+        $products = Product::getAll();
 
         view('product/index.view', [
             "page" => "products",
             "title" => "All products",
-            "products" => $allProducts
+            "products" => $products
+        ]);
+    }
+
+    public function showProductsFromCategory($id): void
+    {
+        $products = Product::findAllBy(["category_id" => $id]);
+        view('product/index.view', [
+            "page" => "products",
+            "title" => "All products",
+            "products" => $products
         ]);
     }
 }

@@ -12,8 +12,6 @@ class MyRouter
 
     public function addRoute($method, $url, $controller, $function): void
     {
-        //$this->routes["method"] = $method;
-
         $this->routes[] = [
             "method" => $method,
             "url" => $url,
@@ -24,7 +22,6 @@ class MyRouter
 
     public function matchRoute($uri, $method): void
     {
-        //$this->routes["method"] = $_SERVER['REQUEST_METHOD'];
         $uri = trim($uri, '/');
 
         foreach ($this->routes as $route) {
@@ -51,12 +48,6 @@ class MyRouter
                 }
                 $routeParams = array_combine($routeNames, $value);
                 $this->routeExists = true;
-
-
-                //echo '<pre>';
-                //print_r($valueMatches);
-                //echo '</pre>';
-                //die();
             }
 
             $controller = $route["controller"];

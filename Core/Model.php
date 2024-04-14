@@ -1,6 +1,6 @@
 <?php
 
-class Model
+class ModelTest
 {
     protected static DatabaseConnection $database;
     private static string $table;

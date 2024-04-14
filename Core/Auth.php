@@ -4,7 +4,7 @@ class Auth
 {
     private static $allData;
 
-    public static function getAll()
+    public static function getAllUserData()
     {
         if(isset($_SESSION["id"])) {
 
@@ -15,6 +15,7 @@ class Auth
 
             return self::$allData = $user;
         }
+        return false;
     }
     public static function query($field = "")
     {
@@ -31,7 +32,7 @@ class Auth
         return isset($_SESSION["logged_in"]) && $_SESSION["logged_in"];
     }
 
-    public static function isAdmin()
+    public static function isAdmin(): bool
     {
         setSession();
         return isset($_SESSION["logged_in"]) && $_SESSION["user"]->role === "admin";

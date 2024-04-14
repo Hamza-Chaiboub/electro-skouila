@@ -1,31 +1,13 @@
 <?php
 
-class Product
+class Product extends Model
 {
     protected static DatabaseConnection $database;
-    private static string $table;
+    protected static string $table = "products";
 
-    private static array $fillable = [
+    protected static array $fillable = [
         "name",
         "price",
         "slug"
     ];
-
-    public function __construct()
-    {
-        static::$database = new DatabaseConnection();
-        static::$table = 'products';
-    }
-
-    public static function findBy($field)
-    {
-        new static();
-        return static::$database->select(static::$table, $field);
-    }
-
-    public static function getAll()
-    {
-        new static();
-        return static::$database->select(static::$table);
-    }
 }

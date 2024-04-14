@@ -1,9 +1,5 @@
 <?php
 include root_path('Components/navbar.php');
-/*echo "<pre>";
-print_r($_SESSION["errors"]);
-echo "</pre>";*/
-
 ?>
 
 <section class="bg-gray-50">
