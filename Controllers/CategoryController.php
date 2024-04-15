@@ -47,31 +47,11 @@ class CategoryController
     public function store(): void
     {
         Category::save();
-        /*$query = "INSERT INTO categories (name, description, image, featured) values (:name, :description, :image, :featured)";
-
-        if(isset($_POST['submit'])){
-            if(!empty($_POST["name"])){
-                $data = [
-                    "featured" => $_POST["featured"] ?? 0,
-                    "name" => $_POST["name"],
-                    "description" => $_POST["description"],
-                    "image" => (new ImageUploader($_FILES, "image"))->storeImage(),
-                ];
-
-                $this->database->run($query, $data);
-                header('Location: /');
-
-            }else {
-                ErrorHandler::getError('name', 'Category name cannot be empty');
-                header('Location: ' . $_SERVER['HTTP_REFERER']);
-            }
-            exit();
-        }*/
     }
 
     public function view($id): void
     {
-        $category = Category::findBy(["id" => $id]);
+        $category = Category::findOrFail(["id" => $id]);
 
         if (! $category) {
             $category = null;
@@ -86,11 +66,7 @@ class CategoryController
 
     public function edit($id): void
     {
-        $category = Category::findBy(["id" => $id]);
-
-        if (! $category) {
-            $category = null;
-        }
+        $category = Category::findOrFail(["id" => $id]);
 
         view('categories/edit', ['category' => $category, 'page' => 'categories', 'title' => $category->name]);
     }
@@ -103,7 +79,7 @@ class CategoryController
     public function destroy($id): void
     {
         //get image path
-        $category = Category::findBy(['id' => $id]);
+        $category = Category::findOrFail(['id' => $id]);
 
         if(file_exists(__DIR__ . '/../public' . $category->image)) {
             unlink(__DIR__ . '/../public' . $category->image);

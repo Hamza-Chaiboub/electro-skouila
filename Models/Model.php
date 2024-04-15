@@ -11,10 +11,10 @@ class Model
     {
         static::$database = new DatabaseConnection();
     }
-    public static function findBy($field)
+    public static function findOrFail($field)
     {
         new static();
-        return static::$database->select(static::$table, $field);
+        return static::$database->select(static::$table, $field) ?? null;
     }
 
     public static function findAllBy($field): false|array

@@ -6,7 +6,7 @@ class ProductController
 {
     public function show($id, $slug): void
     {
-        $product = Product::findBy(["id" => $id]);
+        $product = Product::findOrFail(["id" => $id]);
         view('product/show.view', [
             "page" => "products",
             "product" => $product,

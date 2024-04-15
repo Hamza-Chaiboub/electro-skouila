@@ -93,7 +93,7 @@ class User extends Model
     {
         new static();
         if(isset($_POST["submit"])) {
-            $user = static::findBy(["email" => $_POST["email"]]);
+            $user = static::findOrFail(["email" => $_POST["email"]]);
 
             if($user) {
                 if(password_verify($_POST["password"], $user->password)) {
