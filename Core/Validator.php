@@ -67,7 +67,7 @@ class Validator
         }
     }
 
-    public static function validateCategoryName($input): void
+    public static function validateName($input): void
     {
         if (isset($input) && empty($input)) {
 

@@ -48,5 +48,7 @@ $router->addRoute('POST', '/register',AuthController::class, 'storeUser');
 
 
 $router->addRoute('GET', '/products', ProductController::class, 'index');
+$router->addRoute('GET', '/product/create', ProductController::class, 'create');
+$router->addRoute('POST', '/product/create', ProductController::class, 'store');
 $router->addRoute('GET', '/product/{id:\d+}/{slug:\w+}', ProductController::class, 'show');
 $router->addRoute('GET', '/products/{id:\d+}', ProductController::class, 'showProductsFromCategory');

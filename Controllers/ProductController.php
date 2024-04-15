@@ -11,10 +11,11 @@ class ProductController
             "page" => "products",
             "product" => $product,
             "title" => $product->name,
+            "category_id" => $product->category_id,
         ]);
     }
 
-    public function index(): void
+    public static function index(): void
     {
         $products = Product::getAll();
 
@@ -23,6 +24,19 @@ class ProductController
             "title" => "All products",
             "products" => $products
         ]);
+    }
+
+    public static function create(): void
+    {
+        view('product/create.view', [
+            "page" => "products",
+            "title" => "Create New Product",
+        ]);
+    }
+
+    public function store(): void
+    {
+        Product::save();
     }
 
     public function showProductsFromCategory($id): void

@@ -13,7 +13,7 @@ class Category extends Model
     {
         new static();
         if(isset($_POST["submit"])) {
-            Validator::validateCategoryName($_POST["name"]);
+            Validator::validateName($_POST["name"]);
         }
 
         if(!empty(Errors::getAllErrors())) {

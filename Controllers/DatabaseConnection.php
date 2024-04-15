@@ -82,8 +82,8 @@ class DatabaseConnection
 
         $values = [];
 
-        foreach ($_POST as $key => $value) {
-            foreach ($fillable as $fillKey) {
+        foreach ($fillable as $fillKey) {
+            foreach ($_POST as $key => $value) {
                 if ($fillKey === $key) {
                     $values[] = $value;
                 }
