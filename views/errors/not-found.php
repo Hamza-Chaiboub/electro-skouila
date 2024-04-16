@@ -11,3 +11,6 @@ include(__DIR__ . '/../../Components/navbar.php');
         </div>
     </div>
 </section>
+<?php
+include(__DIR__ . '/../../Components/footer.php');
+?>

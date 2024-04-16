@@ -24,7 +24,9 @@ include(__DIR__ . '/../../Components/navbar.php');
                     <div class="flex flex-wrap items-center justify-between">
 
                         <label class="block mb-2 text-sm font-medium text-gray-900 w-full" for="file_input">Upload file</label>
+                        <?php if($category->image): ?>
                         <img src='<?php echo $category->image ?>' alt="" class="w-1/3 items-center">
+                        <?php endif; ?>
                         <input name="image" class="flex-grow block text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" aria-describedby="file_input_help" id="file_input" type="file" value="">
                         <input type="hidden" name="image" value="<?php echo $category->image ?>">
                         <p class="mt-1 text-sm text-gray-500" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>

@@ -1,6 +1,5 @@
 <?php
 include root_path('Components/navbar.php');
-//dd($_SESSION);
 ?>
 
     <div class="w-2/5 text-lg text-gray-500 transition-opacity duration-300 bg-white border border-gray-200 rounded-lg shadow-sm mx-auto my-16">
@@ -11,6 +10,9 @@ include root_path('Components/navbar.php');
                 </a>
                 <div>
                     <button onclick="toggleDrawer()" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Edit</button>
+                    <?php if(Auth::isAdmin()): ?>
+                    <a href="/dashboard" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-xs px-3 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Dashboard</a>
+                    <?php endif; ?>
                 </div>
             </div>
             <p class="text-base font-semibold leading-none text-gray-900 dark:text-white">

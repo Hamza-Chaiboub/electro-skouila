@@ -4,7 +4,6 @@ require_once __DIR__ . '/../../Controllers/CategoryController.php';
     /**
      * @var $category
      */
-$products = Product::findAllBy(["category_id" => $category->id]);
 
 include_once __DIR__ . '/../../Components/navbar.php';
 ?>
@@ -17,7 +16,6 @@ include_once __DIR__ . '/../../Components/navbar.php';
                 <div class="relative items-center gap-12 m-auto lg:inline-flex">
                     <div class="max-w-xl text-center lg:text-left">
                         <div>
-
                             <p class="text-2xl font-medium tracking-tight text-black sm:text-4xl">
                                 <?php echo $category->name ?>
                             </p>

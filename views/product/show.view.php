@@ -1,6 +1,5 @@
 <?php
 /** @var $product
- * @var $category_id
  */
 include_once __DIR__ . '/../../Components/navbar.php';
 ?>
@@ -113,7 +112,7 @@ include_once __DIR__ . '/../../Components/navbar.php';
             <div class="mt-16">
                 <h3 class="text-gray-600 text-2xl font-medium">More Products</h3>
                 <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
-                    <?php foreach (Product::findAllBy(['category_id' => $category_id]) as $product) { ?>
+                    <?php foreach (Product::findAllBy(['category_id' => $product->category_id]) as $product) { ?>
                         <div class="w-full max-w-sm mx-auto rounded-md shadow-md overflow-hidden">
                             <a href="/product/<?= $product->id ?>/<?= $product->slug ?>">
                                 <div class="flex items-end justify-end h-56 w-full bg-cover" style="background-image: url('<?= $product->featured_image ?>')">

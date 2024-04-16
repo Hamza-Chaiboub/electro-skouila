@@ -54,7 +54,8 @@ class CategoryController
         $category = Category::findOrFail(["id" => $id]);
 
         if (! $category) {
-            $category = null;
+            view('errors/not-found');
+            exit();
         }
 
         view('categories/view', [
@@ -81,7 +82,7 @@ class CategoryController
         //get image path
         $category = Category::findOrFail(['id' => $id]);
 
-        if(file_exists(__DIR__ . '/../public' . $category->image)) {
+        if(file_exists(__DIR__ . '/../public' . $category->image) && !empty($category->image)) {
             unlink(__DIR__ . '/../public' . $category->image);
         }
 

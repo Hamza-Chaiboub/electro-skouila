@@ -38,4 +38,9 @@ class Product extends Model
 
         ProductController::index();
     }
+
+    public static function update($id)
+    {
+
+    }
 }

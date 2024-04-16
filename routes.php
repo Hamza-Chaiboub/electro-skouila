@@ -11,6 +11,7 @@ require root_path('Controllers/CategoryController.php');
 require root_path('Controllers/ProductController.php');
 require root_path('Controllers/HomeController.php');
 require root_path('Controllers/AuthController.php');
+require root_path('Controllers/AdminController.php');
 require root_path('Core/Auth.php');
 require root_path('Core/Errors.php');
 require root_path('Core/Validator.php');
@@ -51,4 +52,9 @@ $router->addRoute('GET', '/products', ProductController::class, 'index');
 $router->addRoute('GET', '/product/create', ProductController::class, 'create');
 $router->addRoute('POST', '/product/create', ProductController::class, 'store');
 $router->addRoute('GET', '/product/{id:\d+}/{slug:\w+}', ProductController::class, 'show');
+$router->addRoute('GET', '/product/edit/{id:\d+}/{slug:\w+}', ProductController::class, 'edit');
 $router->addRoute('GET', '/products/{id:\d+}', ProductController::class, 'showProductsFromCategory');
+
+if(Auth::authenticated() && Auth::isAdmin()) {
+    $router->addRoute('GET', '/dashboard', AdminController::class, 'home');
+}
