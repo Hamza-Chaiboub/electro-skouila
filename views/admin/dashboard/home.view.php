@@ -15,6 +15,22 @@
         <?php include root_path('Components/dashboard/nav.php'); ?>
         <div class="mt-12">
             <div class="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
+                <?php
+                Card::make('User')
+                    ->title('Users')
+                    ->count()
+                    ->iconColor('red')
+                    ->icon('fas fa-user')
+                    ->period("month")
+                    ->draw();
+                Card::make('User')
+                    ->title('Test')
+                    ->count()
+                    ->period("week")
+                    ->iconColor('blue')
+                    ->icon('fas fa-clock')
+                    ->draw();
+                ?>
                 <div class="relative flex flex-col bg-clip-border rounded-xl bg-white text-gray-700 shadow-md">
                     <div class="bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-blue-600 to-blue-400 text-white shadow-blue-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="w-6 h-6 text-white">

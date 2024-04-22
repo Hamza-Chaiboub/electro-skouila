@@ -4,12 +4,6 @@ require_once __DIR__ . '/../Core/ErrorHandler.php';
 require_once __DIR__ . '/../Core/Uploader.php';
 class CategoryController
 {
-    private DatabaseConnection $database;
-
-    public function __construct(){
-        $this->database = new DatabaseConnection();
-    }
-
     public static function index(): void
     {
         $categories = Category::getAll();
@@ -53,11 +47,6 @@ class CategoryController
     {
         $category = Category::findOrFail(["id" => $id]);
 
-        if (! $category) {
-            view('errors/not-found');
-            exit();
-        }
-
         view('categories/view', [
             'category' => $category,
             'page' => 'categories',
@@ -65,7 +54,7 @@ class CategoryController
         ]);
     }
 
-    public function edit($id): void
+    public static function edit($id): void
     {
         $category = Category::findOrFail(["id" => $id]);
 

@@ -36,6 +36,10 @@ class Category extends Model
         new static();
 
         if ( isset($_POST["update-category"]) ) {
+            Validator::validateName($_POST["name"]);
+            if(Errors::getAllErrors()) {
+                CategoryController::edit($id);
+            }
             $_POST['featured'] = $_POST["featured"] ?? 0;
             $old_image = $_POST["image"];
 

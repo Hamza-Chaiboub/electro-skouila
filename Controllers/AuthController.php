@@ -11,7 +11,7 @@ class AuthController
             exit();
         }
 
-        view("errors/not-found");
+        view("errors/404");
         exit();
     }
 

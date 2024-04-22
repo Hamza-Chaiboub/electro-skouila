@@ -18,7 +18,7 @@ include(__DIR__ . '/../../Components/navbar.php');
                     <div>
                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 ">Name</label>
                         <input type="text" name="name" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5" placeholder="Type product name" value="<?php echo $category->name ?>">
-                        <div class="text-red-500"><?php echo $error ?? ''; ?></div>
+                        <div class="text-red-500"><?= $_SESSION["errors"]["name"] ?? ''; ?></div>
                     </div>
 
                     <div class="flex flex-wrap items-center justify-between">
@@ -89,4 +89,5 @@ include(__DIR__ . '/../../Components/navbar.php');
 </script>
 <?php
 include(__DIR__ . '/../../Components/footer.php');
+unset($_SESSION["name"]);
 ?>

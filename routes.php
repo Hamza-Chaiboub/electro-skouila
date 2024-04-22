@@ -19,9 +19,10 @@ require root_path('Models/Model.php');
 require root_path('Models/User.php');
 require root_path('Models/Product.php');
 require root_path('Models/Category.php');
+require root_path('Components/dashboard/Card.php');
 
 $router->addRoute('GET', '/',HomeController::class, 'home');
-$router->addRoute('GET', '/not-found', HomeController::class, 'notFound');
+$router->addRoute('GET', '/404', HomeController::class, 'notFound');
 
 
 $router->addRoute('GET', '/categories',CategoryController::class, 'index');
@@ -33,6 +34,10 @@ if(Auth::authenticated() && Auth::isAdmin()) {
     $router->addRoute('GET', '/category/edit/{id:\d+}',CategoryController::class, 'edit');
     $router->addRoute('POST', '/category/edit/{id:\d+}',CategoryController::class, 'update');
     $router->addRoute('GET', '/category/delete/{id:\d+}',CategoryController::class, 'destroy');
+    $router->addRoute('GET', '/product/create', ProductController::class, 'create');
+    $router->addRoute('POST', '/product/create', ProductController::class, 'store');
+    $router->addRoute('GET', '/product/edit/{id:\d+}/{slug:\w+}', ProductController::class, 'edit');
+    $router->addRoute('GET', '/dashboard', AdminController::class, 'home');
 }
 
 
@@ -49,12 +54,5 @@ $router->addRoute('POST', '/register',AuthController::class, 'storeUser');
 
 
 $router->addRoute('GET', '/products', ProductController::class, 'index');
-$router->addRoute('GET', '/product/create', ProductController::class, 'create');
-$router->addRoute('POST', '/product/create', ProductController::class, 'store');
 $router->addRoute('GET', '/product/{id:\d+}/{slug:\w+}', ProductController::class, 'show');
-$router->addRoute('GET', '/product/edit/{id:\d+}/{slug:\w+}', ProductController::class, 'edit');
 $router->addRoute('GET', '/products/{id:\d+}', ProductController::class, 'showProductsFromCategory');
-
-if(Auth::authenticated() && Auth::isAdmin()) {
-    $router->addRoute('GET', '/dashboard', AdminController::class, 'home');
-}

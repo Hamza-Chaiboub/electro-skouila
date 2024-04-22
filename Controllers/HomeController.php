@@ -11,6 +11,6 @@ class HomeController
     public function notFound(): void
     {
         $title = "404";
-        view("errors/not-found");
+        view("errors/404");
     }
 }

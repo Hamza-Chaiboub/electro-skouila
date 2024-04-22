@@ -68,10 +68,10 @@ class User extends Model
 
             $_POST["email"] = Auth::getAllUserData()->email;
 
-            //Validator::validateUsername($_POST["username"]);
-            Validator::validateUsername($username);
+            Validator::validateUsername($_POST["username"]);
+            //Validator::validateUsername($username);
 
-            if(!empty(Errors::getAllErrors())) {
+            if (!empty(Errors::getAllErrors())) {
                 header('Location: ' . $_SERVER['HTTP_REFERER']);
                 exit();
             }

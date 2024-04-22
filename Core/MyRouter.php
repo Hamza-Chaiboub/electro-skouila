@@ -67,12 +67,12 @@ class MyRouter
 
                 }
                 else {
-                    view('errors/not-found');
+                    view('errors/404');
                 }
             }
         }
         if(!$this->routeExists) {
-            view('errors/not-found');
+            view('errors/404');
         }
     }
 }

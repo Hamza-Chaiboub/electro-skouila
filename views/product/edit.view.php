@@ -11,8 +11,8 @@ $categories = Category::getAll();
                 <div class="max-w-md mx-auto">
                     <div class="flex items-center space-x-5">
                         <div class="block pl-2 font-semibold text-xl self-start text-gray-700">
-                            <h2 class="leading-relaxed">New product</h2>
-                            <p class="text-sm text-gray-500 font-normal leading-relaxed">Create a new product (a product must have at least a name).</p>
+                            <h2 class="leading-relaxed">Update product</h2>
+                            <p class="text-sm text-gray-500 font-normal leading-relaxed">Update product (a product must have at least a name).</p>
                         </div>
                     </div>
                     <form action="/product/create" method="POST" enctype="multipart/form-data">
@@ -59,7 +59,7 @@ $categories = Category::getAll();
                                 <a href="<?= $_SERVER["HTTP_REFERER"] ?? '/products' ?>" class="flex justify-center items-center w-full text-gray-900 px-4 py-3 rounded-md focus:outline-none">
                                     <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> Cancel
                                 </a>
-                                <button class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">Create</button>
+                                <button class="bg-blue-500 flex justify-center items-center w-full text-white px-4 py-3 rounded-md focus:outline-none">Update</button>
                             </div>
                         </div>
                     </form>

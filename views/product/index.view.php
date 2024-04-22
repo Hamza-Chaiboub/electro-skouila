@@ -7,7 +7,9 @@ include_once __DIR__ . '/../../Components/navbar.php';
 ?>
 <main class="ym-8">
     <div class="container mx-auto px-4 py-16 lg:px-8 lg:py-16 xl:max-w-7xl">
+        <?php if(Auth::authenticated() && Auth::isAdmin()): ?>
         <a href="/product/create" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Add new product</a>
+        <?php endif; ?>
         <div class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-6">
             <?php if ($products): ?>
                 <?php foreach ($products as $product) { ?>

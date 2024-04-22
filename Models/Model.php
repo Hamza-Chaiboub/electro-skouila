@@ -14,7 +14,13 @@ class Model
     public static function findOrFail($field)
     {
         new static();
-        return static::$database->select(static::$table, $field) ?? null;
+        $data = static::$database->select(static::$table, $field);
+
+        if($data == null) {
+            view('errors/404');
+            exit();
+        }
+        return $data;
     }
 
     public static function findAllBy($field): false|array

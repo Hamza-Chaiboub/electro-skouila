@@ -1,5 +1,4 @@
 <?php
-
 $page = 'home';
 include(root_path('Components/navbar.php'));
 include(root_path('Components/hero.php'));
