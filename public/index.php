@@ -14,7 +14,11 @@ $routes = require root_path('routes.php');
 setSession();
 
 // Testing purposes
-//dd(Product::findBy(["id" => 1]));
+//dd(date('Y-m-d', strtotime("+1 week")));
+dd(User::findAllNewerThan(date('2024-03-02'), "month"));
+$date = date("Y-m-d");
+echo date('Y-m-d',strtotime(User::findOrFail(["id" => 13])->created_at)) == $date ? 'true' : 'false';
+dd(date('Y-m-d',strtotime(User::findOrFail(["id" => 13])->created_at)));
 // End testing
 
 $router->matchRoute($uri, $method);

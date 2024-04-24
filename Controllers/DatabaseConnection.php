@@ -134,4 +134,11 @@ class DatabaseConnection
     {
         self::$db = null;
     }
+
+    public function selectAllNewerThan(string $table, $date, $by): false|array
+    {
+        $sql = "SELECT * FROM $table WHERE `created_at` > :created_at";
+
+        return self::run($sql, ["created_at" => date('Y-m-d', strtotime("$date + 1 $by"))])->fetchAll();
+    }
 }
