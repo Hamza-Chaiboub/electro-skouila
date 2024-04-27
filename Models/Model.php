@@ -29,10 +29,10 @@ class Model
         return static::$database->selectAll(static::$table, $field);
     }
 
-    public static function findAllNewerThan($date, $by): false|array
+    public static function findAllNewerBy($count, $by, $date = ""): false|array
     {
         new static();
-        return static::$database->selectAllNewerThan(static::$table, $date, $by);
+        return static::$database->selectAllNewerBy(static::$table, $count, $by, $date);
     }
 
     public static function getAll(): false|array

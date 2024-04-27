@@ -4,6 +4,8 @@ class AdminController
 {
     public function home(): void
     {
-        view('admin/dashboard/home.view');
+        view('admin/dashboard/home.view', [
+            'title' => 'Dashboard'
+        ]);
     }
 }

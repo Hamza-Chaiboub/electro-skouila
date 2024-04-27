@@ -2,56 +2,55 @@
 
 class Card
 {
-    private static ?Card $_instance = null;
     private static array $data;
-    private static $model;
+    private static string $model;
 
-    public static function getInstance (): Card
-    {
-        if (self::$_instance === null) {
-            self::$_instance = new self;
-        }
-        return self::$_instance;
-    }
     public static function make($model): Card
     {
-        self::getInstance();
         self::$model = $model;
-        return self::$_instance;
+        return new static();
     }
 
     public static function title($title): Card
     {
         self::$data['cardTitle'] = $title;
-        return self::$_instance;
+        return new static();
     }
 
-    public static function count(): Card
+    public static function count($count, $by): Card
     {
-        self::$data['cardCount'] = count(self::$model::getAll());
-        return self::$_instance;
+        self::$data['cardCount'] = count(self::$model::findAllNewerBy($count, $by));
+        self::$data['lastCount'] = count(self::$model::findAllNewerBy($count, $by, date('Y-m-d', strtotime("-$count $by")))) - self::$data['cardCount'];
+        self::$data['cardPeriod'] = $count == 1 ? $by : $count." ".$by."s";
+        self::percentage();
+        return new static();
+    }
+
+    public static function percentage(): void
+    {
+        $current = self::$data['cardCount'];
+        $previous = self::$data['lastCount'];
+        $percentage = $previous == 0 ? ($current - $previous) * 100 : ($current - $previous) / $previous * 100;
+
+        self::$data['cardPercentage'] = strpos($percentage, '.') ? number_format($percentage, 2) : $percentage;
+        self::$data['percentageSign'] = $percentage > 0 ? '+' : "";
     }
 
     public static function icon($icon): Card
     {
         self::$data['cardIcon'] = $icon;
-        return self::$_instance;
+        return new static();
     }
 
     public static function iconColor($value): Card
     {
-        self::$data['iconColor'] = "bg-clip-border mx-4 rounded-xl overflow-hidden bg-gradient-to-tr from-$value-600 to-$value-400 text-white shadow-$value-500/40 shadow-lg absolute -mt-4 grid h-16 w-16 place-items-center";
-        return self::$_instance;
-    }
-
-    public static function period($value): Card
-    {
-        self::$data['cardPeriod'] = $value;
-        return self::$_instance;
+        self::$data['iconColor'] = $value;
+        return new static();
     }
 
     public static function draw(): void
     {
         view('admin/dashboard/partials/card', self::$data);
+        self::$data = [];
     }
 }
