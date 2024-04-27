@@ -17,10 +17,11 @@ class Card
         return new static();
     }
 
-    public static function count($count, $by): Card
+    public static function count($count, $by, $prefix = ""): Card
     {
-        self::$data['cardCount'] = count(self::$model::findAllNewerBy($count, $by));
-        self::$data['lastCount'] = count(self::$model::findAllNewerBy($count, $by, date('Y-m-d', strtotime("-$count $by")))) - self::$data['cardCount'];
+        self::$data['currentCount'] = count(self::$model::findAllNewerBy($count, $by));
+        self::$data['cardCount'] = $prefix.self::$data['currentCount'];
+        self::$data['lastCount'] = count(self::$model::findAllNewerBy($count, $by, date('Y-m-d', strtotime("-$count $by")))) - self::$data['currentCount'];
         self::$data['cardPeriod'] = $count == 1 ? $by : $count." ".$by."s";
         self::percentage();
         return new static();
@@ -28,7 +29,7 @@ class Card
 
     public static function percentage(): void
     {
-        $current = self::$data['cardCount'];
+        $current = self::$data['currentCount'];
         $previous = self::$data['lastCount'];
         $percentage = $previous == 0 ? ($current - $previous) * 100 : ($current - $previous) / $previous * 100;
 

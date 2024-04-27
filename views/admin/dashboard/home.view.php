@@ -30,7 +30,7 @@
                 Card::make('Product')
                     ->title('New added products')
                     ->iconColor('cyan')
-                    ->count(1, "month")
+                    ->count(1, "month", "$")
                     ->icon('fas fa-shop')
                     ->draw();
                 ?>
