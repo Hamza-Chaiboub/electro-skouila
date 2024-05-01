@@ -2,7 +2,6 @@
 
 class Product extends Model
 {
-    protected static DatabaseConnection $database;
     protected static string $table = "products";
 
     protected static array $fillable = [
@@ -28,7 +27,7 @@ class Product extends Model
             exit();
         }
 
-        $_POST["slug"] = 'test';
+        $_POST["slug"] = self::slugify($_POST["name"]);
 
         $_POST["featured_image"] = (new ImageUploader($_FILES, "featured_image"))->storeImage() ?? '';
 
@@ -42,5 +41,14 @@ class Product extends Model
     public static function update($id)
     {
 
+    }
+
+    public static function slugify($input): string
+    {
+        $slug = strtolower($input);
+        $slug = str_replace(' ', '_', $slug);
+        $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug);
+        $slug = preg_replace('/-+/', '-', $slug);
+        return trim($slug, '-');
     }
 }

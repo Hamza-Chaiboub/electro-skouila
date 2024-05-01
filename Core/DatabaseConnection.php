@@ -1,7 +1,5 @@
 <?php
 
-use Random\RandomException;
-
 class DatabaseConnection
 {
     static $db;
@@ -52,7 +50,7 @@ class DatabaseConnection
     {
         if(!empty($field)) {
             $sql = "SELECT * FROM $table WHERE `". array_key_first($field) ."` = :" . array_key_first($field);
-
+            //dd(self::record($sql, [array_key_first($field) => $field[array_key_first($field)]]));
             return self::record($sql, [array_key_first($field) => $field[array_key_first($field)]]);
         } else {
             $sql = "SELECT * FROM $table";

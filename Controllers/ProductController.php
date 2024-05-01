@@ -6,7 +6,10 @@ class ProductController
 {
     public function show($id, $slug): void
     {
-        $product = Product::findOrFail(["id" => $id]);
+        $product = Product::findOrFail([
+            "id" => $id,
+            "slug" => $slug,
+        ]);
 
         view('product/show.view', [
             "page" => "products",

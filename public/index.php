@@ -14,7 +14,7 @@ $routes = require root_path('routes.php');
 setSession();
 
 // Testing purposes
-
+//dd(Order::getAllOrFail());
 // End testing
 
 $router->matchRoute($uri, $method);

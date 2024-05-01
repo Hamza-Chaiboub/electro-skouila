@@ -26,7 +26,7 @@ class User extends Model
         }
 
         if(!empty(Errors::getAllErrors())) {
-            (new AuthController())->register();
+            (new UserController())->register();
             unset($_SESSION["errors"]);
             exit();
         }
@@ -40,7 +40,7 @@ class User extends Model
 
         $_POST["profile_picture"] = "/storage/img/default-profile-picture.jpeg";
 
-        AuthController::hashPassword($_POST["password"]);
+        UserController::hashPassword($_POST["password"]);
 
         $_POST['username'] = "user" . bin2hex(random_bytes(3));
 
@@ -52,7 +52,7 @@ class User extends Model
         $_SESSION["id"] = $user->id;
         $_SESSION["user"] = $user;
 
-        AuthController::login();
+        UserController::login();
     }
 
     public static function update($id, $username): void
@@ -110,7 +110,7 @@ class User extends Model
         }
 
         if(!empty(Errors::getAllErrors())) {
-            AuthController::login();
+            UserController::login();
             unset($_SESSION["errors"]);
             exit();
         }

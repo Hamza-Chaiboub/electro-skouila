@@ -6,12 +6,13 @@
  *
  * */
 
-require root_path('Controllers/DatabaseConnection.php');
+require root_path('Core/DatabaseConnection.php');
 require root_path('Controllers/CategoryController.php');
 require root_path('Controllers/ProductController.php');
 require root_path('Controllers/HomeController.php');
-require root_path('Controllers/AuthController.php');
+require root_path('Controllers/UserController.php');
 require root_path('Controllers/AdminController.php');
+require root_path('Controllers/OrderController.php');
 require root_path('Core/Auth.php');
 require root_path('Core/Errors.php');
 require root_path('Core/Validator.php');
@@ -19,6 +20,7 @@ require root_path('Models/Model.php');
 require root_path('Models/User.php');
 require root_path('Models/Product.php');
 require root_path('Models/Category.php');
+require root_path('Models/Order.php');
 require root_path('Components/dashboard/Card.php');
 
 $router->addRoute('GET', '/',HomeController::class, 'home');
@@ -42,15 +44,15 @@ if(Auth::authenticated() && Auth::isAdmin()) {
 
 
 if (Auth::authenticated()) {
-    $router->addRoute('GET', '/profile/{id:\d+}/{username:\w+}',AuthController::class, 'view');
-    $router->addRoute('POST', '/profile/{id:\d+}/{username:\w+}',AuthController::class, 'updateUser');
-    $router->addRoute('GET', '/user/logout',AuthController::class, 'logout');
+    $router->addRoute('GET', '/profile/{id:\d+}/{username:\w+}',UserController::class, 'view');
+    $router->addRoute('POST', '/profile/{id:\d+}/{username:\w+}',UserController::class, 'updateUser');
+    $router->addRoute('GET', '/user/logout',UserController::class, 'logout');
 }
 
-$router->addRoute('GET', '/login',AuthController::class, 'login');
-$router->addRoute('POST', '/login',AuthController::class, 'authenticate');
-$router->addRoute('GET', '/register',AuthController::class, 'register');
-$router->addRoute('POST', '/register',AuthController::class, 'storeUser');
+$router->addRoute('GET', '/login',UserController::class, 'login');
+$router->addRoute('POST', '/login',UserController::class, 'authenticate');
+$router->addRoute('GET', '/register',UserController::class, 'register');
+$router->addRoute('POST', '/register',UserController::class, 'storeUser');
 
 
 $router->addRoute('GET', '/products', ProductController::class, 'index');

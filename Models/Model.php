@@ -17,7 +17,8 @@ class Model
         $data = static::$database->select(static::$table, $field);
 
         if($data == null) {
-            view('errors/404');
+            //view('errors/404');
+            HomeController::notFound();
             exit();
         }
         return $data;
@@ -39,5 +40,18 @@ class Model
     {
         new static();
         return static::$database->selectAll(static::$table);
+    }
+
+    public static function getAllOrFail(): false|array
+    {
+        new static();
+        $data = static::$database->selectAll(static::$table);
+
+        if($data == null) {
+            //view('errors/404');
+            HomeController::notFound();
+            exit();
+        }
+        return $data;
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-class AuthController
+class UserController
 {
     public static function view($id, $username): void
     {

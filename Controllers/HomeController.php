@@ -5,12 +5,14 @@ class HomeController
     public function home()
     {
         $title = "Home";
-        include __DIR__ . '/home.php';
+        view("home", ["title" => $title]);
     }
 
-    public function notFound(): void
+    public static function notFound(): void
     {
         $title = "404";
-        view("errors/404");
+        view("errors/404", [
+            "title" => $title
+        ]);
     }
 }
