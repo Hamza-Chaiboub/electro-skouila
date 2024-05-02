@@ -11,9 +11,12 @@ class ProductController
             "slug" => $slug,
         ]);
 
+        $relatedProducts = Product::getAllExcept(['id' => $product->id, 'category_id' => $product->category_id]);
+
         view('product/show.view', [
             "page" => "products",
             "product" => $product,
+            "relatedProducts" => $relatedProducts,
             "title" => $product->name
         ]);
     }

@@ -139,4 +139,21 @@ class DatabaseConnection
 
         return self::run($sql, ["created_at" => date('Y-m-d', strtotime("$date - $count $by"))])->fetchAll();
     }
+
+    public function selectAllExcept($table, $field = []): false|array
+    {
+        if(!empty($field)) {
+            $keys = array_keys($field);
+            $sql = "SELECT * FROM $table WHERE `". $keys[0] ."` != :" . $keys[0] . " AND " . $keys[1] . " = :" . $keys[1];
+
+            return self::run($sql, [
+                $keys[0] => $field[$keys[0]],
+                $keys[1] => $field[$keys[1]],
+            ])->fetchAll();
+        } else {
+            $sql = "SELECT * FROM $table";
+
+            return self::run($sql)->fetchAll();
+        }
+    }
 }

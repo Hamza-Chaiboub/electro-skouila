@@ -40,7 +40,29 @@ class Product extends Model
 
     public static function update($id)
     {
+        /*new static();
 
+        if ( isset($_POST["update-product"]) ) {
+            Validator::validateName($_POST["name"]);
+            if(Errors::getAllErrors()) {
+                ProductController::edit($id);
+            }
+            $_POST['featured'] = $_POST["featured"] ?? 0;
+            $old_image = $_POST["image"];
+
+            $new_image = new ImageUploader($_FILES,"image");
+
+            $_POST["image"] = $new_image->storeImage() ?? $_POST["image"];
+
+            if (!$new_image->error && file_exists(__DIR__ . '/../public' . $old_image) && !empty($old_image)) {
+                unlink(__DIR__ . '/../public' . $old_image);
+            }
+
+            static::$database->update(static::$table, $id, static::$fillable);
+        }
+
+        header("Location: /category/" . $_POST['id']);
+        exit();*/
     }
 
     public static function slugify($input): string

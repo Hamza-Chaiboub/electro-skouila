@@ -42,6 +42,12 @@ class Model
         return static::$database->selectAll(static::$table);
     }
 
+    public static function getAllExcept($id): false|array
+    {
+        new static();
+        return static::$database->selectAllExcept(static::$table, $id);
+    }
+
     public static function getAllOrFail(): false|array
     {
         new static();
