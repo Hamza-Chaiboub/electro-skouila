@@ -1,5 +1,7 @@
 <?php
 
+use JetBrains\PhpStorm\NoReturn;
+
 class Model
 {
     protected static DatabaseConnection $database;
@@ -59,5 +61,11 @@ class Model
             exit();
         }
         return $data;
+    }
+
+    public static function paginate($fields = []): void
+    {
+        new static();
+        dd(static::$database->selectWithPagination(static::$table, $fields));
     }
 }

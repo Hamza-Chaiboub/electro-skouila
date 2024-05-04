@@ -71,4 +71,12 @@ class ProductController
             "products" => $products
         ]);
     }
+
+    public function paginate($page = 1): void
+    {
+        Product::paginate([
+            "start" => $page,
+            "limit" => 3
+        ]);
+    }
 }

@@ -21,7 +21,7 @@ function setSession(): void
 function dd($var)
 {
     echo "<pre>";
-    echo var_dump($var);
+    echo print_r($var, true);
     echo "</pre>";
     die();
 }

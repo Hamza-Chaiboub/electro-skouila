@@ -14,7 +14,7 @@ $routes = require root_path('routes.php');
 setSession();
 
 // Testing purposes
-//dd(Order::getAllOrFail());
+//dd(Product::paginate(["start" => 1 , "limit" => 3]));
 // End testing
 
 $router->matchRoute($uri, $method);

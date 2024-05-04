@@ -156,4 +156,28 @@ class DatabaseConnection
             return self::run($sql)->fetchAll();
         }
     }
+
+    public function selectWithPagination($table, $field = []): false|array
+    {
+        if(!empty($field)) {
+            $keys = array_keys($field);
+            $records = count($this->selectAll($table));
+            $num_of_pages = ceil($records / $field[$keys[1]]);
+
+            if ($field[$keys[0]] > $num_of_pages) {
+                HomeController::notFound();
+            }
+            
+            $sql = "SELECT * FROM $table LIMIT :".$keys[0].", :".$keys[1];
+
+            return self::run($sql, [
+                $keys[0] => ($field[$keys[0]]-1) * $field[$keys[1]],
+                $keys[1] => $field[$keys[1]],
+            ])->fetchAll();
+        } else {
+            $sql = "SELECT * FROM $table";
+
+            return self::run($sql)->fetchAll();
+        }
+    }
 }
