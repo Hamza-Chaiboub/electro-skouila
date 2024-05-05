@@ -55,9 +55,10 @@ $router->addRoute('GET', '/register',UserController::class, 'register');
 $router->addRoute('POST', '/register',UserController::class, 'storeUser');
 
 
-$router->addRoute('GET', '/products', ProductController::class, 'index');
+//$router->addRoute('GET', '/products', ProductController::class, 'index');
 $router->addRoute('GET', '/product/{id:\d+}/{slug:\w+}', ProductController::class, 'show');
 $router->addRoute('GET', '/products/{id:\d+}', ProductController::class, 'showProductsFromCategory');
+$router->addRoute('GET', '/products', ProductController::class, 'paginate');
 $router->addRoute('GET', '/products/page', ProductController::class, 'paginate');
 $router->addRoute('GET', '/products/page/{page:\d+}', ProductController::class, 'paginate');
 

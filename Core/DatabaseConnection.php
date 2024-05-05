@@ -159,21 +159,24 @@ class DatabaseConnection
 
     public function selectWithPagination($table, $field = []): false|array
     {
+        $data = [];
         if(!empty($field)) {
             $keys = array_keys($field);
             $records = count($this->selectAll($table));
             $num_of_pages = ceil($records / $field[$keys[1]]);
+            $data['total_pages'] = $num_of_pages;
 
             if ($field[$keys[0]] > $num_of_pages) {
                 HomeController::notFound();
             }
-            
+
             $sql = "SELECT * FROM $table LIMIT :".$keys[0].", :".$keys[1];
 
-            return self::run($sql, [
+            $data['rows'] = self::run($sql, [
                 $keys[0] => ($field[$keys[0]]-1) * $field[$keys[1]],
                 $keys[1] => $field[$keys[1]],
             ])->fetchAll();
+            return $data;
         } else {
             $sql = "SELECT * FROM $table";
 

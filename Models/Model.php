@@ -63,9 +63,9 @@ class Model
         return $data;
     }
 
-    public static function paginate($fields = []): void
+    public static function paginate($fields = []): false|array
     {
         new static();
-        dd(static::$database->selectWithPagination(static::$table, $fields));
+        return static::$database->selectWithPagination(static::$table, $fields);
     }
 }

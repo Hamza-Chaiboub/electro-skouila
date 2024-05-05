@@ -74,9 +74,21 @@ class ProductController
 
     public function paginate($page = 1): void
     {
-        Product::paginate([
+        $data = Product::paginate([
             "start" => $page,
-            "limit" => 3
+            "limit" => 4
         ]);
+        //dd($data);
+        $total_pages = $data["total_pages"];
+        $products = $data["rows"];
+
+        view('product/index.view', [
+            "page" => "products",
+            "title" => "All products",
+            "products" => $products,
+            "total_pages" => $total_pages,
+            "current_page" => $page
+        ]);
+
     }
 }
