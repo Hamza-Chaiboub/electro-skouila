@@ -1,5 +1,8 @@
 <?php
 
+namespace Controllers;
+use Models\Order;
+
 class OrderController
 {
     public static function index() {

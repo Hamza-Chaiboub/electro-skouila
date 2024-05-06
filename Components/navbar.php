@@ -4,6 +4,8 @@
  * @var string $title
  */
 //setSession();
+use Core\Auth;
+
 if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
 {
     $user = $_SESSION["user"];
@@ -40,6 +42,7 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
             <a href="#" class="link">Contact</a>
         </div>
         <div class="buttons">
+            <a href="" class="link"><i class="fa-solid fa-cart-shopping"></i></a>
             <?php if(!Auth::authenticated()){ ?>
                 <a href="/login" class="link login">Login</a>
                 <a href="/register" class="link signup" id="test">Signup</a>

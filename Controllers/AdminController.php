@@ -1,5 +1,6 @@
 <?php
 
+namespace Controllers;
 class AdminController
 {
     public function home(): void

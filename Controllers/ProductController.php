@@ -1,6 +1,7 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
+namespace Controllers;
+use Models\Product;
 
 class ProductController
 {
@@ -63,7 +64,8 @@ class ProductController
 
     public function showProductsFromCategory($id): void
     {
-        $products = Product::findAllBy(["category_id" => $id]);
+        //$products = Product::findAllBy(["category_id" => $id]);
+        $data =  Product::findAllBy(["category_id" => $id]);
 
         view('product/index.view', [
             "page" => "products",

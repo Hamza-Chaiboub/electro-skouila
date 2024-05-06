@@ -1,5 +1,11 @@
 <?php
 
+namespace Core;
+
+use Controllers\HomeController;
+use PDO;
+use PDOStatement;
+
 class DatabaseConnection
 {
     static $db;

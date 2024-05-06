@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 class ImageUploader
 {
     private $image_name;

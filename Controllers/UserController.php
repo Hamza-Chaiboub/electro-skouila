@@ -1,5 +1,9 @@
 <?php
 
+namespace Controllers;
+use Core\Auth;
+use Models\User;
+
 class UserController
 {
     public static function view($id, $username): void

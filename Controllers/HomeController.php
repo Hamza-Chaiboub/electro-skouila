@@ -1,8 +1,9 @@
 <?php
 
+namespace Controllers;
 class HomeController
 {
-    public function home()
+    public function home(): void
     {
         $title = "Home";
         view("home", ["title" => $title]);

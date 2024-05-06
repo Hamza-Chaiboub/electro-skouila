@@ -1,5 +1,8 @@
 <?php
-require_once __DIR__ . '/../Core/Uploader.php';
+
+namespace Controllers;
+use Models\Category;
+
 class CategoryController
 {
     public static function index(): void

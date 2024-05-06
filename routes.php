@@ -6,22 +6,13 @@
  *
  * */
 
-require root_path('Core/DatabaseConnection.php');
-require root_path('Controllers/CategoryController.php');
-require root_path('Controllers/ProductController.php');
-require root_path('Controllers/HomeController.php');
-require root_path('Controllers/UserController.php');
-require root_path('Controllers/AdminController.php');
-require root_path('Controllers/OrderController.php');
-require root_path('Core/Auth.php');
-require root_path('Core/Errors.php');
-require root_path('Core/Validator.php');
-require root_path('Models/Model.php');
-require root_path('Models/User.php');
-require root_path('Models/Product.php');
-require root_path('Models/Category.php');
-require root_path('Models/Order.php');
-require root_path('Components/dashboard/Card.php');
+use Controllers\AdminController;
+use Controllers\CategoryController;
+use Controllers\HomeController;
+use Controllers\OrderController;
+use Controllers\ProductController;
+use Controllers\UserController;
+use Core\Auth;
 
 $router->addRoute('GET', '/',HomeController::class, 'home');
 $router->addRoute('GET', '/404', HomeController::class, 'notFound');

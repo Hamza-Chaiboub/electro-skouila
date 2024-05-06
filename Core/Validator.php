@@ -1,5 +1,7 @@
 <?php
 
+namespace Core;
+
 class Validator
 {
     public static function validateEmail($input): void

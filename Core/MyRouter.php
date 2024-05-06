@@ -1,5 +1,8 @@
 <?php
 
+namespace Core;
+use Controllers\HomeController;
+
 class MyRouter
 {
     protected array $routes =[];

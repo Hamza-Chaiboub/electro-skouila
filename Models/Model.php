@@ -1,6 +1,9 @@
 <?php
 
-use JetBrains\PhpStorm\NoReturn;
+namespace Models;
+
+use Controllers\HomeController;
+use Core\DatabaseConnection;
 
 class Model
 {

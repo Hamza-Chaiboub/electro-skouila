@@ -1,4 +1,7 @@
 <?php
+
+use Core\Auth;
+
 require_once __DIR__ . '/../../Controllers/CategoryController.php';
 
     /**

@@ -1,9 +1,12 @@
 <?php
+use Core\Auth;
+use Models\Product;
 
 /** @var Product $products
  * @var $current_page
  * @var $total_pages
  */
+
 
 include_once __DIR__ . '/../../Components/navbar.php';
 

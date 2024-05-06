@@ -1,0 +1,17 @@
+{
+    "name": "hamzachaiboub/php-mvc",
+    "authors": [
+        {
+            "name": "Hamza-Chaiboub",
+            "email": "hamzachb93@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Controllers\\" : "Controllers/",
+            "Core\\" : "Core/",
+            "Models\\" : "Models/"
+        }
+    }
+}
