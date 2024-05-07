@@ -57,20 +57,21 @@ class ProductController
         Product::save();
     }
 
-    public function update($id): void
+    public function update($id, $slug): void
     {
         Product::update($id);
     }
 
     public function showProductsFromCategory($id): void
     {
-        //$products = Product::findAllBy(["category_id" => $id]);
-        $data =  Product::findAllBy(["category_id" => $id]);
+        $products = Product::findAllBy(["category_id" => $id]);
+        $total_pages = ceil(count($products) / 4);
 
         view('product/index.view', [
             "page" => "products",
             "title" => "All products",
-            "products" => $products
+            "products" => $products,
+            "total_pages" => $total_pages,
         ]);
     }
 

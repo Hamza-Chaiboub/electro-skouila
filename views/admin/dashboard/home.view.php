@@ -1,4 +1,7 @@
 <?php
+use Components\Card;
+use Models\Product;
+use Models\User;
 /**
  * @var $title
  */
@@ -21,16 +24,16 @@
         <div class="mt-12">
             <div class="mb-12 grid gap-y-10 gap-x-6 md:grid-cols-2 xl:grid-cols-4">
                 <?php
-                Card::make('User')
+                Card::make(User::class)
                     ->title('New Users')
                     ->count(1, "month")
                     ->iconColor('red')
                     ->icon('fas fa-user')
                     ->draw();
-                Card::make('Product')
+                Card::make(Product::class)
                     ->title('New added products')
                     ->iconColor('cyan')
-                    ->count(1, "month", "$")
+                    ->count(1, "month")
                     ->icon('fas fa-shop')
                     ->draw();
                 ?>

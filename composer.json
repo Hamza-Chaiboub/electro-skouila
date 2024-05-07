@@ -11,7 +11,8 @@
         "psr-4": {
             "Controllers\\" : "Controllers/",
             "Core\\" : "Core/",
-            "Models\\" : "Models/"
+            "Models\\" : "Models/",
+            "Components\\" : "Components/dashboard"
         }
     }
 }

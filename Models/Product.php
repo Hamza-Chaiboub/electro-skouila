@@ -2,6 +2,12 @@
 
 namespace Models;
 
+use Controllers\ProductController;
+use Core\DatabaseConnection;
+use Core\Errors;
+use Core\ImageUploader;
+use Core\Validator;
+
 class Product extends Model
 {
     protected static string $table = "products";
@@ -42,19 +48,21 @@ class Product extends Model
 
     public static function update($id)
     {
-        /*new static();
+        new static();
 
         if ( isset($_POST["update-product"]) ) {
             Validator::validateName($_POST["name"]);
             if(Errors::getAllErrors()) {
-                ProductController::edit($id);
+                ProductController::edit($id, $slug = "");
             }
             $_POST['featured'] = $_POST["featured"] ?? 0;
-            $old_image = $_POST["image"];
+            $old_image = $_POST["featured_image"];
 
-            $new_image = new ImageUploader($_FILES,"image");
+            $new_image = new ImageUploader($_FILES,"featured_image");
 
-            $_POST["image"] = $new_image->storeImage() ?? $_POST["image"];
+            $_POST["featured_image"] = $new_image->storeImage() ?? $_POST["featured_image"];
+
+            //dd($old_image);
 
             if (!$new_image->error && file_exists(__DIR__ . '/../public' . $old_image) && !empty($old_image)) {
                 unlink(__DIR__ . '/../public' . $old_image);
@@ -63,8 +71,8 @@ class Product extends Model
             static::$database->update(static::$table, $id, static::$fillable);
         }
 
-        header("Location: /category/" . $_POST['id']);
-        exit();*/
+        //header("Location: /category/" . $_POST['id']);
+        exit();
     }
 
     public static function slugify($input): string

@@ -1,4 +1,7 @@
 <?php
+
+use Core\Errors;
+
 include root_path('Components/navbar.php');
 ?>
 

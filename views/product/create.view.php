@@ -1,4 +1,8 @@
 <?php
+
+use Core\Errors;
+use Models\Category;
+
 include_once __DIR__ . '/../../Components/navbar.php';
 $categories = Category::getAll();
 ?>

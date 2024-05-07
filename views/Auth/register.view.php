@@ -1,4 +1,8 @@
 <?php
+
+use Core\Errors;
+use Core\Validator;
+
 include root_path('Components/navbar.php');
 ?>
 

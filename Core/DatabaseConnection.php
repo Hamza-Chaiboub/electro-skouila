@@ -55,9 +55,20 @@ class DatabaseConnection
     public function select($table, $field = [])
     {
         if(!empty($field)) {
-            $sql = "SELECT * FROM $table WHERE `". array_key_first($field) ."` = :" . array_key_first($field);
-            //dd(self::record($sql, [array_key_first($field) => $field[array_key_first($field)]]));
-            return self::record($sql, [array_key_first($field) => $field[array_key_first($field)]]);
+            $keys = array_keys($field);
+            if(count($field) > 1) {
+                $sql = "SELECT * FROM $table WHERE `". $keys[0] ."` = :" . $keys[0] . " AND `". $keys[1] ."` = :" . $keys[1];
+                //dd($sql);
+                return self::record($sql, [
+                    $keys[0] => $field[$keys[0]],
+                    $keys[1] => $field[$keys[1]]
+                ]);
+            } else {
+                $sql = "SELECT * FROM $table WHERE `". array_key_first($field) ."` = :" . array_key_first($field);
+                //dd($sql);
+                return self::record($sql, [array_key_first($field) => $field[array_key_first($field)]]);
+            }
+            //return self::record($sql, [array_key_first($field) => $field[array_key_first($field)]]);
         } else {
             $sql = "SELECT * FROM $table";
 

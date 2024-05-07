@@ -44,9 +44,12 @@ class CategoryController
         Category::save();
     }
 
-    public function view($id): void
+    public function view($id, $name): void
     {
-        $category = Category::findOrFail(["id" => $id]);
+        $category = Category::findOrFail([
+            "id" => $id,
+            "name" => $name
+        ]);
 
         view('categories/view', [
             'category' => $category,

@@ -2,6 +2,9 @@
 /** @var $product
  * @var $relatedProducts
  */
+
+use Core\Auth;
+
 include_once __DIR__ . '/../../Components/navbar.php';
 ?>
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>

@@ -2,6 +2,12 @@
 
 namespace Models;
 
+use Controllers\CategoryController;
+use Core\DatabaseConnection;
+use Core\Errors;
+use Core\ImageUploader;
+use Core\Validator;
+
 class Category extends Model
 {
     protected static string $table = 'categories';

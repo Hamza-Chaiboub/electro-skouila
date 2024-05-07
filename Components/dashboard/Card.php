@@ -1,9 +1,11 @@
 <?php
 
+namespace Components;
+
 class Card
 {
     private static array $data;
-    private static string $model;
+    private static $model;
 
     public static function make($model): Card
     {
@@ -19,7 +21,7 @@ class Card
 
     public static function count($count, $by, $prefix = ""): Card
     {
-        self::$data['currentCount'] = count(self::$model::findAllNewerBy($count, $by));
+        self::$data['currentCount'] = count(static::$model::findAllNewerBy($count, $by));
         self::$data['cardCount'] = $prefix.self::$data['currentCount'];
         self::$data['lastCount'] = count(self::$model::findAllNewerBy($count, $by, date('Y-m-d', strtotime("-$count $by")))) - self::$data['currentCount'];
         self::$data['cardPeriod'] = $count == 1 ? $by : $count." ".$by."s";

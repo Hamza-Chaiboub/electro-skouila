@@ -19,7 +19,7 @@ $router->addRoute('GET', '/404', HomeController::class, 'notFound');
 
 
 $router->addRoute('GET', '/categories',CategoryController::class, 'index');
-$router->addRoute('GET', "/category/{id:\d+}",CategoryController::class, 'view');
+$router->addRoute('GET', "/category/{id:\d+}/{name:\w+}",CategoryController::class, 'view');
 
 if(Auth::authenticated() && Auth::isAdmin()) {
     $router->addRoute('GET', '/category/create',CategoryController::class, 'create');
@@ -30,6 +30,7 @@ if(Auth::authenticated() && Auth::isAdmin()) {
     $router->addRoute('GET', '/product/create', ProductController::class, 'create');
     $router->addRoute('POST', '/product/create', ProductController::class, 'store');
     $router->addRoute('GET', '/product/edit/{id:\d+}/{slug:\w+}', ProductController::class, 'edit');
+    $router->addRoute('POST', '/product/edit/{id:\d+}/{slug:\w+}', ProductController::class, 'update');
     $router->addRoute('GET', '/dashboard', AdminController::class, 'home');
 }
 

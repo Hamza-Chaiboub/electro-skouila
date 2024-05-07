@@ -2,6 +2,13 @@
 
 namespace Models;
 
+use Controllers\UserController;
+use Core\Auth;
+use Core\DatabaseConnection;
+use Core\Errors;
+use Core\ImageUploader;
+use Core\Validator;
+
 class User extends Model
 {
     protected static string $table = "users";
