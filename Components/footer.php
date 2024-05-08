@@ -29,6 +29,7 @@
         <span class="text-sm text-gray-500 sm:text-center">© 2024 <a href="#" class="hover:underline">Electro-Skouila</a>. All Rights Reserved.</span>
     </div>
 </footer>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 <script>
     let mobile_menu = document.getElementById("mobile_menu");
     let bars = document.getElementById("bars");
