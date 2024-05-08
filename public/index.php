@@ -19,7 +19,7 @@ $routes = require root_path('routes.php');
 setSession();
 
 // Testing purposes
-//dd(Product::paginate(["start" => 1 , "limit" => 3]));
+//unset($_SESSION['cart']);
 // End testing
 
 $router->matchRoute($uri, $method);

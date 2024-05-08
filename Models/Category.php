@@ -15,7 +15,8 @@ class Category extends Model
         "name",
         "description",
         "image",
-        "featured"
+        "featured",
+        "slug"
     ];
     public static function save(): void
     {
@@ -33,6 +34,8 @@ class Category extends Model
         $_POST["image"] = (new ImageUploader($_FILES, "image"))->storeImage();
 
         $_POST["featured"] = $_POST["featured"] ?? 0;
+
+        $_POST["slug"] = Category::slugify($_POST["name"]);
 
         DatabaseConnection::insert(static::$table, static::$fillable);
 

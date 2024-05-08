@@ -41,7 +41,10 @@ include_once __DIR__ . '/../../Components/navbar.php';
                         </div>
                     </div>
                     <div class="flex items-center mt-6">
-                        <button class="px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Order Now</button>
+                        <form action="/addToCart/<?= $product->id ?>" method="POST">
+                            <input type="hidden" name="id" value="<?= $product->id ?>">
+                            <button class="px-8 py-2 bg-indigo-600 text-white text-sm font-medium rounded hover:bg-indigo-500 focus:outline-none focus:bg-indigo-500">Order Now</button>
+                        </form>
                         <?php if(Auth::authenticated() && Auth::isAdmin()): ?>
                         <a href="/product/edit/<?= $product->id ?>/<?= $product->slug ?>" class="ml-2 px-8 py-2 bg-green-600 text-white text-sm font-medium rounded hover:bg-green-500 focus:outline-none focus:bg-green-500">Edit</a>
                         <?php endif; ?>

@@ -7,6 +7,7 @@
  * */
 
 use Controllers\AdminController;
+use Controllers\CartController;
 use Controllers\CategoryController;
 use Controllers\HomeController;
 use Controllers\OrderController;
@@ -19,7 +20,7 @@ $router->addRoute('GET', '/404', HomeController::class, 'notFound');
 
 
 $router->addRoute('GET', '/categories',CategoryController::class, 'index');
-$router->addRoute('GET', "/category/{id:\d+}/{name:\w+}",CategoryController::class, 'view');
+$router->addRoute('GET', "/category/{id:\d+}/{slug:\w+}",CategoryController::class, 'view');
 
 if(Auth::authenticated() && Auth::isAdmin()) {
     $router->addRoute('GET', '/category/create',CategoryController::class, 'create');
@@ -57,3 +58,4 @@ $router->addRoute('GET', '/products/page/{page:\d+}', ProductController::class, 
 
 
 $router->addRoute('GET', '/orders/{user_id:\d+}', OrderController::class, 'getOrders');
+$router->addRoute('POST', '/addToCart/{id:\d+}', CartController::class, 'addToCart');

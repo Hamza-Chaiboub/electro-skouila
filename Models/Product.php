@@ -74,13 +74,4 @@ class Product extends Model
         //header("Location: /category/" . $_POST['id']);
         exit();
     }
-
-    public static function slugify($input): string
-    {
-        $slug = strtolower($input);
-        $slug = str_replace(' ', '_', $slug);
-        $slug = preg_replace('/[^A-Za-z0-9\-]/', '', $slug);
-        $slug = preg_replace('/-+/', '-', $slug);
-        return trim($slug, '-');
-    }
 }

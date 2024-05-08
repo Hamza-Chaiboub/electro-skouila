@@ -4,6 +4,7 @@
  * @var string $title
  */
 //setSession();
+/** @var $product */
 use Core\Auth;
 
 if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
@@ -43,8 +44,8 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
         </div>
         <div class="buttons">
             <div class="inline">
-                <button @click="cartOpen = !cartOpen" class="link"><i class="fa-solid fa-cart-shopping"></i></button>
-                <div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'" class="fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-l-2 border-gray-300">
+                <button @click="cartOpen = !cartOpen" class="link"><i class="fa-solid fa-cart-shopping relative"><span class="<?= isset($_SESSION['cart']) ? 'bg-red-500' : 'hidden' ?> w-3 h-3 absolute rounded-full -top-2 left-0"></span></i></button>
+                <div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'" class="z-10 fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-l-2 border-gray-300">
                     <div class="flex items-center justify-between">
                         <h3 class="text-2xl font-medium text-gray-700">Your cart</h3>
                         <button @click="cartOpen = !cartOpen" class="text-gray-600 focus:outline-none">
@@ -52,11 +53,14 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
                         </button>
                     </div>
                     <hr class="my-3">
+                    <?php
+                    if(isset($_SESSION['cart'])):
+                    foreach($_SESSION['cart'] as $productInCart): ?>
                     <div class="flex justify-between mt-6">
                         <div class="flex">
-                            <img class="h-20 w-20 object-cover rounded" src="https://images.unsplash.com/photo-1593642632823-8f785ba67e45?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80" alt="">
+                            <img class="h-20 w-20 object-cover rounded" src="<?= $productInCart->featured_image ?>" alt="">
                             <div class="mx-3">
-                                <h3 class="text-sm text-gray-600">Mac Book Pro</h3>
+                                <h3 class="text-sm text-gray-600"><?= $productInCart->name ?></h3>
                                 <div class="flex items-center mt-2">
                                     <button class="text-gray-500 focus:outline-none focus:text-gray-600">
                                         <svg class="h-5 w-5" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -68,8 +72,11 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
                                 </div>
                             </div>
                         </div>
-                        <span class="text-gray-600">20$</span>
+                        <span class="text-gray-600"><?= $productInCart->price ?>$</span>
                     </div>
+                    <?php endforeach;
+                    endif;
+                    ?>
                     <div class="mt-8">
                         <form class="flex items-center justify-center">
                             <input class="form-input w-48" type="text" placeholder="Add promocode">

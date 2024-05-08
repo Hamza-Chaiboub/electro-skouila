@@ -56,20 +56,24 @@ include root_path('Components/navbar.php');
             <div class="space-y-4">
                 <div>
                     <h5 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Profile Picture</h5>
-                    <div class="flex flex-col justify-center items-center">
+                    <div class="flex justify-between items-center">
                         <img src="<?= Auth::query('profile_picture') ?>" alt="" class="object-cover rounded-full h-16 w-16">
-                        <label class="mt-2 bg-slate-600 text-gray-200 rounded-md px-4 py-2 cursor-pointer hover:bg-slate-700 hover:text-white" for="profile_picture"><i class="fa-solid fa-cloud-arrow-up"></i> New Picture</label>
-                        <input type="file" name="new_profile_picture" id="profile_picture" class="hidden">
-                        <input type="hidden" name="profile_picture" value="<?= Auth::query('profile_picture') ?>">
+                        <div>
+                            <label class="mt-2 bg-slate-600 text-gray-200 rounded-md px-4 py-2 cursor-pointer hover:bg-slate-700 hover:text-white" for="profile_picture"><i class="fa-solid fa-cloud-arrow-up"></i> New Picture</label>
+                            <input type="file" name="new_profile_picture" id="profile_picture" class="hidden">
+                            <input type="hidden" name="profile_picture" value="<?= Auth::query('profile_picture') ?>">
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
-                    <input type="text" id="first_name" name="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<?= Auth::query("first_name") ?>">
-                </div>
-                <div>
-                    <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
-                    <input type="text" id="last_name" name="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<?= Auth::query("last_name") ?>">
+                <div class="flex">
+                    <div>
+                        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">First Name</label>
+                        <input type="text" id="first_name" name="first_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<?= Auth::query("first_name") ?>">
+                    </div>
+                    <div>
+                        <label for="last_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Last Name</label>
+                        <input type="text" id="last_name" name="last_name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-600 focus:border-blue-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="<?= Auth::query("last_name") ?>">
+                    </div>
                 </div>
                 <div>
                     <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
