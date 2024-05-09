@@ -59,3 +59,5 @@ $router->addRoute('GET', '/products/page/{page:\d+}', ProductController::class, 
 
 $router->addRoute('GET', '/orders/{user_id:\d+}', OrderController::class, 'getOrders');
 $router->addRoute('POST', '/addToCart/{id:\d+}', CartController::class, 'addToCart');
+$router->addRoute('GET', '/increment/{id:\d+}', CartController::class, 'increment');
+$router->addRoute('GET', '/decrement/{id:\d+}', CartController::class, 'decrement');

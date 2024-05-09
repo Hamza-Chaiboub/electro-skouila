@@ -46,5 +46,36 @@
 
     document.onclick = close_nav;
 </script>
+<script>
+    function incrementCounter(id) {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    document.getElementById('cartQuantity'+id).innerText = xhr.responseText;
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            }
+        };
+        xhr.open('GET', '/increment/'+id, true);
+        xhr.send();
+    }
+
+    function decrementCounter(id) {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    document.getElementById('cartQuantity'+id).innerText = xhr.responseText;
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            }
+        };
+        xhr.open('GET', '/decrement/'+id, true);
+        xhr.send();
+    }
+</script>
 </body>
 </html>
