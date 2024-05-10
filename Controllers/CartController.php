@@ -41,4 +41,15 @@ class CartController
         $_SESSION['cart'][$id]["quantity"] = $productQuantity;
         print $productQuantity;
     }
+
+    public static function removeFromCart($id)
+    {
+        //dd($_SESSION['cart']);
+        if(count($_SESSION['cart']) == 1){
+            unset($_SESSION['cart']);
+            print 'hidden';
+        }else {
+            unset($_SESSION['cart'][$id]);
+        }
+    }
 }

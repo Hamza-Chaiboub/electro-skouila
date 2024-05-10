@@ -76,6 +76,22 @@
         xhr.open('GET', '/decrement/'+id, true);
         xhr.send();
     }
+
+    function removeFromCart(id) {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    document.getElementById(id).style.display = 'none';
+                    document.getElementById('mainCart').classList.add(xhr.responseText);
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            }
+        };
+        xhr.open('GET', '/removeFromCart/'+id, true);
+        xhr.send();
+    }
 </script>
 </body>
 </html>

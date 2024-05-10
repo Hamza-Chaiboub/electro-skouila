@@ -44,7 +44,7 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
         </div>
         <div class="buttons">
             <div class="inline">
-                <button @click="cartOpen = !cartOpen" class="link"><i class="fa-solid fa-cart-shopping relative"><span class="<?= isset($_SESSION['cart']) ? 'bg-red-500' : 'hidden' ?> w-3 h-3 absolute rounded-full -top-2 left-0"></span></i></button>
+                <button @click="cartOpen = !cartOpen" class="link"><i class="fa-solid fa-cart-shopping relative"><span id="mainCart" class="<?= isset($_SESSION['cart']) ? 'bg-red-500' : 'hidden' ?> w-3 h-3 absolute rounded-full -top-2 left-0"></span></i></button>
                 <div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'" class="z-10 fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-l-2 border-gray-300">
                     <div class="flex items-center justify-between">
                         <h3 class="text-2xl font-medium text-gray-700">Your cart</h3>
@@ -56,7 +56,7 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
                     <?php
                     if(isset($_SESSION['cart'])):
                     foreach($_SESSION['cart'] as $productInCart): ?>
-                    <div class="flex justify-between mt-6">
+                    <div id="<?= $productInCart['data']->id ?>" class="flex justify-between mt-6">
                         <div class="flex">
                             <img class="h-20 w-20 object-cover rounded" src="<?= $productInCart['data']->featured_image ?>" alt="">
                             <div class="mx-3">
@@ -72,7 +72,10 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
                                 </div>
                             </div>
                         </div>
-                        <span class="text-gray-600"><?= $productInCart['data']->price ?>$</span>
+                        <div>
+                            <span class="text-gray-600"><?= $productInCart['data']->price ?>$</span>
+                            <div onclick="removeFromCart(<?= $productInCart['data']->id ?>)" class="cursor-pointer"><i class="fa-solid fa-trash-can"></i></div>
+                        </div>
                     </div>
                     <?php endforeach;
                     endif;
