@@ -43,8 +43,9 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
             <a href="#" class="link">Contact</a>
         </div>
         <div class="buttons">
+            <?php if($_SERVER['REQUEST_URI'] != '/cart'): ?>
             <div class="inline">
-                <button @click="cartOpen = !cartOpen" class="link"><i class="fa-solid fa-cart-shopping relative"><span id="mainCart" class="<?= isset($_SESSION['cart']) ? 'bg-red-500' : 'hidden' ?> w-3 h-3 absolute rounded-full -top-2 left-0"></span></i></button>
+                <button @click="cartOpen = !cartOpen" class="link"><i class="fa-solid fa-cart-shopping relative"><span id="mainCart" class="<?= isset($_SESSION['cart']['products']) ? 'bg-red-500' : 'hidden' ?> w-3 h-3 absolute rounded-full -top-2 left-0"></span></i></button>
                 <div :class="cartOpen ? 'translate-x-0 ease-out' : 'translate-x-full ease-in'" class="z-10 fixed right-0 top-0 max-w-xs w-full h-full px-6 py-4 transition duration-300 transform overflow-y-auto bg-white border-l-2 border-gray-300">
                     <div class="flex items-center justify-between">
                         <h3 class="text-2xl font-medium text-gray-700">Your cart</h3>
@@ -54,8 +55,8 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
                     </div>
                     <hr class="my-3">
                     <?php
-                    if(isset($_SESSION['cart'])):
-                    foreach($_SESSION['cart'] as $productInCart): ?>
+                    if(isset($_SESSION['cart']['products'])):
+                    foreach($_SESSION['cart']['products'] as $productInCart): ?>
                     <div id="<?= $productInCart['data']->id ?>" class="flex justify-between mt-6">
                         <div class="flex">
                             <img class="h-20 w-20 object-cover rounded" src="<?= $productInCart['data']->featured_image ?>" alt="">
@@ -73,14 +74,13 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
                             </div>
                         </div>
                         <div>
-                            <span class="text-gray-600"><?= $productInCart['data']->price ?>$</span>
+                            <span class="text-gray-600">$<?= number_format($productInCart['data']->price, 2) ?></span>
                             <div onclick="removeFromCart(<?= $productInCart['data']->id ?>)" class="cursor-pointer"><i class="fa-solid fa-trash-can"></i></div>
                         </div>
                     </div>
-                    <?php endforeach;
-                    endif;
-                    ?>
-                    <div class="mt-8">
+                    <?php endforeach; ?>
+                    <div class="mt-4">Total : $<span id="total"><?= number_format($_SESSION['cart']['total'], 2) ?? '' ?></span></div>
+                    <div class="mt-4">
                         <form class="flex items-center justify-center">
                             <input class="form-input w-48" type="text" placeholder="Add promocode">
                             <button class="ml-3 flex items-center px-3 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
@@ -88,12 +88,16 @@ if(isset($_SESSION["logged_in"]) && $_SESSION['logged_in'])
                             </button>
                         </form>
                     </div>
-                    <a class="flex items-center justify-center mt-4 px-3 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
+                    <a href="/cart" class="flex items-center justify-center mt-4 px-3 py-2 bg-blue-600 text-white text-sm uppercase font-medium rounded hover:bg-blue-500 focus:outline-none focus:bg-blue-500">
                         <span>Checkout</span>
                         <svg class="h-5 w-5 mx-2" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
+                    <?php else: ?>
+                    <div>Your cart is empty</div>
+                    <?php endif; ?>
                 </div>
             </div>
+            <?php endif; ?>
             <?php if(!Auth::authenticated()){ ?>
                 <a href="/login" class="link login">Login</a>
                 <a href="/register" class="link signup" id="test">Signup</a>

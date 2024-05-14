@@ -60,6 +60,7 @@
         };
         xhr.open('GET', '/increment/'+id, true);
         xhr.send();
+        getTotal();
     }
 
     function decrementCounter(id) {
@@ -75,6 +76,7 @@
         };
         xhr.open('GET', '/decrement/'+id, true);
         xhr.send();
+        getTotal();
     }
 
     function removeFromCart(id) {
@@ -90,6 +92,23 @@
             }
         };
         xhr.open('GET', '/removeFromCart/'+id, true);
+        xhr.send();
+        getTotal();
+    }
+
+    function getTotal() {
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    document.getElementById('total').innerText = xhr.responseText;
+                    //document.getElementById('mainCart').classList.add(xhr.responseText);
+                } else {
+                    console.error('Error:', xhr.status);
+                }
+            }
+        };
+        xhr.open('GET', '/getTotal', true);
         xhr.send();
     }
 </script>

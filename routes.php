@@ -62,3 +62,5 @@ $router->addRoute('POST', '/addToCart/{id:\d+}', CartController::class, 'addToCa
 $router->addRoute('GET', '/increment/{id:\d+}', CartController::class, 'increment');
 $router->addRoute('GET', '/decrement/{id:\d+}', CartController::class, 'decrement');
 $router->addRoute('GET', '/removeFromCart/{id:\d+}', CartController::class, 'removeFromCart');
+$router->addRoute('GET', '/getTotal', CartController::class, 'getTotal');
+$router->addRoute('GET', '/cart', CartController::class, 'index');

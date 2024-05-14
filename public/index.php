@@ -19,7 +19,7 @@ $routes = require root_path('routes.php');
 setSession();
 
 // Testing purposes
-//dd(count($_SESSION['cart']));
+//dd($_SESSION);
 // End testing
 
 $router->matchRoute($uri, $method);
