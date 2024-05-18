@@ -2,6 +2,7 @@
 const BASE_PATH = __DIR__ . "/../";
 
 require BASE_PATH . "vendor/autoload.php";
+require_once BASE_PATH . 'vendor/dompdf/autoload.inc.php';
 
 use Core\MyRouter;
 use Core\DatabaseConnection;
@@ -19,7 +20,7 @@ $routes = require root_path('routes.php');
 setSession();
 
 // Testing purposes
-//dd($_SESSION);
+
 // End testing
 
 $router->matchRoute($uri, $method);

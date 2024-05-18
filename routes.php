@@ -10,6 +10,7 @@ use Controllers\AdminController;
 use Controllers\CartController;
 use Controllers\CategoryController;
 use Controllers\HomeController;
+use Controllers\InvoiceController;
 use Controllers\OrderController;
 use Controllers\ProductController;
 use Controllers\UserController;
@@ -64,3 +65,7 @@ $router->addRoute('GET', '/decrement/{id:\d+}', CartController::class, 'decremen
 $router->addRoute('GET', '/removeFromCart/{id:\d+}', CartController::class, 'removeFromCart');
 $router->addRoute('GET', '/getTotal', CartController::class, 'getTotal');
 $router->addRoute('GET', '/cart', CartController::class, 'index');
+
+
+$router->addRoute('GET', '/invoice', InvoiceController::class, 'index');
+$router->addRoute('GET', '/invoice/print', InvoiceController::class, 'print');

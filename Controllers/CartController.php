@@ -8,7 +8,9 @@ class CartController
 {
 
     public static function index() {
-        view('cart/main.view');
+        view('cart/main.view', [
+            'title' => 'My Cart'
+        ]);
     }
     public static function addToCart($id): void
     {
