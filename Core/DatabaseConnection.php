@@ -4,22 +4,45 @@ namespace Core;
 
 use Controllers\HomeController;
 use PDO;
+use PDOException;
 use PDOStatement;
 
 class DatabaseConnection
 {
-    static $db;
+    private static PDO $db;
+    private static $instance;
+    private string $driver;
+    private string $host;
+    private string $db_name;
+    private string $username;
+    private string $password;
 
-    public function __construct()
+    private function __construct()
     {
+        $this->driver = $_ENV['DB_DRIVER'];
+        $this->host = $_ENV['HOST'];
+        $this->db_name = $_ENV['DB_NAME'];
+        $this->username = $_ENV['DB_USER'];
+        $this->password = $_ENV['DB_PWD'];
         try{
-            $db = new PDO('mysql:host=localhost;dbname=full', 'root', '');
+            //$db = new PDO('mysql:host=localhost;dbname=full', 'root', '');
+            $db = new PDO("$this->driver:host=$this->host;dbname=$this->db_name", $this->username, $this->password);
+
             $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
         }catch(PDOException $e){
             echo $e->getMessage();
             die();
         }
         return self::$db = $db;
+    }
+
+    public static function getInstance(): DatabaseConnection
+    {
+        if(is_null(self::$instance))
+        {
+            self::$instance = new self();
+        }
+        return self::$instance;
     }
 
     public static function run($sql, $args = []): false|PDOStatement
@@ -93,7 +116,8 @@ class DatabaseConnection
     {
 
         $placeHolders = array_map(fn($v) =>  $v = "?" ,$fillable);
-        $sql = "INSERT INTO " . $table . "(". implode(",", $fillable) .") values (". implode(",", $placeHolders) .")";
+        $sql = "INSERT INTO "
+            . $table . "(". implode(",", $fillable) .") values (". implode(",", $placeHolders) .")";
 
         $values = [];
 
@@ -143,11 +167,6 @@ class DatabaseConnection
         $sql = "DELETE FROM " . $table . " WHERE `id` = :id";
         $param = ["id" => $id];
         self::run($sql, $param);
-    }
-
-    public static function closeConnection(): void
-    {
-        self::$db = null;
     }
 
     public function selectAllNewerBy(string $table, $count, $by, $date = ""): false|array

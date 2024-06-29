@@ -92,6 +92,10 @@ class ProductController
             "total_pages" => $total_pages,
             "current_page" => $page
         ]);
+    }
 
+    public static function fetchProducts()
+    {
+        echo json_encode(Product::getAll());
     }
 }

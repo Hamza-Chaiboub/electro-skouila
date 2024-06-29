@@ -16,4 +16,5 @@ class HomeController
             "title" => $title
         ]);
     }
+
 }

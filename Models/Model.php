@@ -14,7 +14,7 @@ class Model
 
     public function __construct()
     {
-        static::$database = new DatabaseConnection();
+        static::$database = DatabaseConnection::getInstance();
     }
     public static function findOrFail($field)
     {
@@ -24,6 +24,16 @@ class Model
         if($data == null) {
             //view('errors/404');
             HomeController::notFound();
+            exit();
+        }
+        return $data;
+    }
+
+    public static function find($field){
+        new static();
+        $data = static::$database->select(static::$table, $field);
+
+        if($data == null) {
             exit();
         }
         return $data;

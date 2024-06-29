@@ -23,7 +23,7 @@ class MyRouter
         ];
     }
 
-    public function matchRoute($uri, $method): void
+    public function matchRoute($uri, $method = 'OPTIONS'): void
     {
         $uri = trim($uri, '/');
 
@@ -57,7 +57,7 @@ class MyRouter
             $function = $route["function"];
 
 
-            if (class_exists($controller) && !empty($valueMatches[0]) && $uri == $valueMatches[0][0] && $method == $route["method"]) {
+            if (class_exists($controller) && !empty($valueMatches[0]) && $uri == $valueMatches[0][0] && ($method == $route["method"] || $_SERVER['REQUEST_METHOD'] == 'OPTIONS')) {
 
                 $controllerInstance = new $controller();
 

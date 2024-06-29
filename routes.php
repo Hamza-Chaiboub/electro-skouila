@@ -17,6 +17,7 @@ use Controllers\UserController;
 use Core\Auth;
 
 $router->addRoute('GET', '/',HomeController::class, 'home');
+$router->addRoute('GET', '/fetch',HomeController::class, 'fetch');
 $router->addRoute('GET', '/404', HomeController::class, 'notFound');
 
 

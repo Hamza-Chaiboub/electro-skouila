@@ -16,12 +16,15 @@
         <table style="width:100%; height:auto;  text-align:center; " BORDER=0 CELLSPACING=0>
             <thead style="background:#fafafa; padding:8px;">
             <tr style="font-size: 20px;">
-                <td colspan="4" style="padding:20px 20px;text-align: left;">L E Z A D A</td>
+                <td colspan="4" style="padding:20px 20px;text-align: left;">S K O U I L A</td>
+            </tr>
+            <tr>
+                <img src="storage/img/hp-victus-26-04-2024-09-59-56.jpeg" alt="">
             </tr>
             </thead>
             <tbody style="background:#ffff;padding:20px;">
             <tr>
-                <td colspan="4" style="padding:20px 0 0 20px;text-align:left;font-size: 16px; font-weight: bold;color:#000;">Hello, Rita</td>
+                <td colspan="4" style="padding:20px 0 0 20px;text-align:left;font-size: 16px; font-weight: bold;color:#000;">Hello, Hamza</td>
             </tr>
             <tr>
                 <td colspan="4" style="text-align:left;padding:10px 10px 10px 20px;font-size:14px;">Your order details</td>
@@ -39,8 +42,8 @@
             <tr style="background-color:#fff; font-size:12px; color:#262626;">
                 <td style="border-right:1.5px dashed  #DCDCDC ;width:25%; font-weight:bold;background: #fafafa;">11.07.2021</td>
                 <td style="border-right:1.5px dashed  #DCDCDC ;width:25% ; font-weight:bold;background: #fafafa;">000000001</td>
-                <td style="border-right:1.5px dashed  #DCDCDC ;width:25%; font-weight:bold;background: #fafafa;">CASH</td>
-                <td style="width:25%; font-weight:bold;background: #fafafa;">Kosovo, Prishtina</td>
+                <td style="border-right:1.5px dashed  #DCDCDC ;width:25%; font-weight:bold;background: #fafafa;">CASH ON DELIVERY</td>
+                <td style="width:25%; font-weight:bold;background: #fafafa;">Ontario, Canada</td>
             </tr>
             </tbody>
         </table>
@@ -78,17 +81,10 @@
                 <td style="font-weight: bold;padding:5px 0px">Total</td>
                 <td style="text-align:right;padding:5px 0px;font-weight: bold;font-size:16px;">&dollar;<?= number_format($cart['total'], 2) ?></td>
             </tr>
-
-            <tr>
-                <td colspan="2" style="font-weight:bold;"><span style="color:#c61932;font-weight: bold;">THANK YOU</span> for shipping with us!</td>
-            </tr>
-            <tr>
-                <td colspan="2" style="font-weight:bold;text-align:left;padding:5px 0px 0px 00px;font-size:14px;">THRED<span>+</span> team</td>
-            </tr>
             </tbody>
             <tfoot style="padding-top:20px;font-weight: bold;">
             <tr>
-                <td style="padding-top:20px;">Need help? Contact us <span style="color:#c61932"> info@thred-plus.shop </span></td>
+                <td style="padding-top:20px;">Need help? Contact us <span style="color:#c61932"> support@skouila.com </span></td>
             </tr>
             </tfoot>
         </table>

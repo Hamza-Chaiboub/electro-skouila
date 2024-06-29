@@ -3,6 +3,7 @@
 namespace Controllers;
 
 use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class InvoiceController
 {
@@ -17,6 +18,9 @@ class InvoiceController
     {
         $cart = $_SESSION['cart'];
         // instantiate and use the dompdf class
+        $options = new Options();
+        $options->set('chroot', realpath(''));
+        //dd($options);
         $dompdf = new Dompdf();
         ob_start();
         require root_path('Components/invoice_printable.php');

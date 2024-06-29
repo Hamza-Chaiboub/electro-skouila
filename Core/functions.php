@@ -21,7 +21,14 @@ function setSession(): void
 function dd($var)
 {
     echo "<pre>";
-    echo print_r($var, true);
+    var_dump($var);
     echo "</pre>";
     die();
+}
+
+function isApi($uri): bool
+{
+    $trimmedUri = trim($uri, "/");
+    $uriSegments = explode("/", $trimmedUri);
+    return isset($uriSegments[0]) && $uriSegments[0] == 'api';
 }
